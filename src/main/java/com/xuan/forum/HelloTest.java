@@ -18,4 +18,10 @@ public class HelloTest {
         model.addAttribute("name",name);
         return "hello";
     }
+
+    //默认跳转路径
+    @GetMapping("/")
+    public String index(){
+        return "hello";
+    }
 }
