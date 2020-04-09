@@ -4,6 +4,7 @@ import com.xuan.forum.dto.GithubAccessTokenDto;
 import com.xuan.forum.dto.GithubUser;
 import com.xuan.forum.provider.GithubProvider;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,6 +17,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class AuthorizeController {
     @Autowired
     private GithubProvider githubProvider;
+    @Value("${github.client.id}")
+    private String clientId;
+    @Value("${github.client.secret}")
+    private String clientSecret;
+    @Value("${github.redirect.url}")
+    private String redirectUr;
+
+
 
     /**
      * github登录回调地址
@@ -30,10 +39,12 @@ public class AuthorizeController {
         //创建获取access_token所需的参数对象
         GithubAccessTokenDto accessTokenDto = new GithubAccessTokenDto();
         accessTokenDto.setCode(code);
-        accessTokenDto.setRedirect_uri("http://localhost:8081/callback");
+        accessTokenDto.setRedirect_uri(redirectUr);
         accessTokenDto.setState(state);
-        accessTokenDto.setClient_id("0a3644bfe6f3a24b63fe");
-        accessTokenDto.setClient_secret("9f03ac7d1534d60ada6ee17e53f2073e862395d7");
+        //设置client_id
+        accessTokenDto.setClient_id(clientId);
+        //设置 client_secret
+        accessTokenDto.setClient_secret(clientSecret);
         //获取access_tpken
         String accessToken = githubProvider.getAccessToken(accessTokenDto);
 
