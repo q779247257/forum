@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class HelloTest {
     @GetMapping("/hello")
     public String hello(@RequestParam(name = "name" ,required = false ,defaultValue = "空的默认值") String name, Model model){
-        System.out.println("接受到的name："+name);
         model.addAttribute("name",name);
         return "hello";
     }
