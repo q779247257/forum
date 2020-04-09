@@ -45,3 +45,9 @@ comment on column USER.TOKEN is 'Cookie作为token  使用uuid作为token';
 comment on column USER.GMT_CREATE is 'bigint 对应 long类型 存储时间戳';
 comment on column USER.GME_MODIFIED is '修改时间，存储的为时间戳';
 ```
+设置H2数据库的sa账户的密码脚本
+```h2
+create user if not exists sa password '123';
+alter user sa admin true;
+```
+[Mybatis](https://blog.mybatis.org/)
