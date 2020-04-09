@@ -12,7 +12,10 @@
 ##### 前端框架
 [BootStrap](https://www.bootcss.com/)
 
-Spring Boot thymeleaf
+
 
 [jquery 2.1.1](https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js)
 ##### 后端框架
+
+[Spring Boot](https://spring.io/projects/spring-boot)
+[OkHttp](https://square.github.io/okhttp/)

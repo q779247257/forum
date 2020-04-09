@@ -19,9 +19,11 @@ public class HelloTest {
         return "hello";
     }
 
-    //默认跳转路径
+    //默认跳转路径(首页)
     @GetMapping("/")
     public String index(){
         return "hello";
     }
+
+
 }
