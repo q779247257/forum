@@ -1,10 +1,15 @@
-## 轩轩社区
-
+## PCF社区
+PCF社区是一个95后的新手码农IT技术交流平台，全称 (Programmer Communication forum)。
+旨为打造更好的技术交流平台,相互学习，相互进步.
 ## 资料
-[项目码云地址:](https://gitee.com/xing_xuanxuan/forum)
+[项目码云地址](https://gitee.com/xing_xuanxuan/forum)
 
 [需求参考：ES中文社区](https://elasticsearch.cn/)
-## 工具
+## 开发环境
+[Maven](https://maven.apache.org/)
+
+[Jdk 1.8](https://www.oracle.com/java/technologies/javase-downloads.html)
+
  
 ## 说明
 [git登录官方文档](https://developer.github.com/apps/building-oauth-apps/creating-an-oauth-app/)
@@ -12,18 +17,18 @@
 ##### 前端框架
 [BootStrap](https://www.bootcss.com/)
 
-
-
 [jquery 2.1.1](https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js)
 ##### 后端框架
 
 [Spring Boot](https://spring.io/projects/spring-boot)
 
-[OkHttp](https://square.github.io/okhttp/)
+[Spring Boot Thymeleaf（模板引擎）](https://www.thymeleaf.org/index.html)
+
+[OkHttp（java网络请求的框架）](https://square.github.io/okhttp/)
 
 [FastJson](https://github.com/alibaba/fastjson)
 
-[H2数据库 已替换](http://www.h2database.com/html/main.html)
+[H2数据库 （已替换为mysql）](http://www.h2database.com/html/main.html)
 
 [Mysql](https://www.mysql.com/)
 
