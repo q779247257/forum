@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>发布 - PCF社区</title>
+    <title>社区名字</title>
     <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
     <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
     <link rel="stylesheet" href="css/bootstrap.min.css" >
@@ -45,7 +45,45 @@
                 <li th:if="${session.user == null}">
                     <a href="https://github.com/login/oauth/authorize?client_id=0a3644bfe6f3a24b63fe&redirect_uri=http://localhost:8081/callback&scope=user&state=1">登录</a>
                 </li>
+
+
             </ul>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-9 .col-md-12 .col-sm-12 .col-xs-12">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                <h2>发起</h2>
+                <hr>
+                <from action="">
+<!--                    问题标题-->
+                    <div class="form-group">
+                        <label for="title">问题标题（简单扼要）：</label>
+                        <input type="text" class="form-control" id="title" name="title" placeholder="问题标题">
+                    </div>
+                    <!--                问题补充-->
+                    <div class="form-group">
+                        <label for="title">问题补充（必填，请参照右侧提示）：</label>
+                        <textarea  name="description" id="description" class="form-control" cols="30" rows="10"></textarea>
+                    </div>
+                    <!--                添加标签-->
+                    <div class="form-group">
+                        <label for="title">添加标签：</label>
+                        <input type="text" class="form-control" id="tag" name="tag" placeholder="输入标签，以，（逗号）分隔开">
+                    </div>
+                    <button type="button" class="btn btn-success">提交</button>
+                </from>
+
+            </div>
+
+            <div class="col-lg-3 .col-md-12 .col-sm-12 .col-xs-12">
+                <h3>问题发起指南</h3>
+                · 问题标题：请用精简的语言描述发布您的问题，不超过25个值字；
+                · 问题补充：详细补充您的问题内容，并确保问题描述情绪直观，并提供一些相关的资料；
+                · 选择标签：选择一个或者多个适合的标签，用逗号隔开，每个标签不超过10个字;
+            </div>
         </div>
     </div>
 

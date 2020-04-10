@@ -75,6 +75,7 @@ public class GithubUser {
         user.setAccountId(String.valueOf(this.getId()));
         //设置新增时间为当前系统时间戳
         user.setGmtCreate(System.currentTimeMillis());
+        user.setBio(this.getBio());
         return user;
     }
 }

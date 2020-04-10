@@ -16,9 +16,9 @@ public interface UserMapper {
      * @param user
      */
     @Insert("insert into user " +
-            "(name,account_id,token,gmt_create,gmt_modified)" +
+            "(name,account_id,token,gmt_create,gmt_modified,bio)" +
             " values " +
-            "(#{name},#{accountId},#{token},#{gmtCreate},#{gmtModified})")
+            "(#{name},#{accountId},#{token},#{gmtCreate},#{gmtModified},#{bio})")
      void insert(User user);
 
     /**
@@ -34,7 +34,8 @@ public interface UserMapper {
             " name," +
             " token," +
             " gmt_create," +
-            " gmt_modified" +
+            " gmt_modified, " +
+            " bio " +
             " FROM user WHERE token = #{token}")
     @Results(id ="userMap" , value = {
                     @Result(id=true,column = "id",property = "id" ),

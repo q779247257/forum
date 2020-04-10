@@ -1,10 +1,12 @@
 ## PCF社区
-PCF社区是一个95后的新手码农IT技术交流平台，全称 (Programmer Communication forum)。
+PCF社区是一个95后的新手码农搭建的IT技术交流平台，全称 (Programmer Communication forum)。
 旨为打造更好的技术交流平台,相互学习，相互进步.
 ## 资料
 [项目码云地址](https://gitee.com/xing_xuanxuan/forum)
 
 [需求参考：ES中文社区](https://elasticsearch.cn/)
+
+[JDK 1.8 中文文档](http://www.matools.com/api/java8)
 ## 开发环境
 [Maven](https://maven.apache.org/)
 
@@ -33,7 +35,10 @@ PCF社区是一个95后的新手码农IT技术交流平台，全称 (Programmer 
 [Mysql](https://www.mysql.com/)
 
 Mysql数据库对应的sql脚本
+
+
 ```mysql
+user表sql脚本
 /*
  Navicat Premium Data Transfer
 

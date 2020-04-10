@@ -5,6 +5,7 @@ import com.xuan.forum.dto.GithubAccessTokenDto;
 import com.xuan.forum.dto.GithubUser;
 import okhttp3.*;
 import org.apache.http.*;
+import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -93,6 +94,8 @@ public class GithubProvider {
         HttpGet httpGet = new HttpGet(getUrl);
         httpGet.setProtocolVersion(HttpVersion.HTTP_1_0);
         httpGet.addHeader(HTTP.CONN_DIRECTIVE, HTTP.CONN_CLOSE);
+
+
         CloseableHttpResponse response= null;
         try {
             // 通过client调用execute方法，得到我们的执行结果就是一个response，所有的数据都封装在response里面了
@@ -103,12 +106,12 @@ public class GithubProvider {
             HttpEntity entity = response.getEntity();
             // 通过EntityUtils 来将我们的数据转换成字符串
             resultStr = EntityUtils.toString(entity, "UTF-8");
-            // 关闭
-            response.close();
         } catch (SocketException e){
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+        }finally {
+            httpGet.abort();
         }
         System.out.println("获取github账户资料的链接为："+getUrl);
         GithubUser githubUser = JSON.parseObject(resultStr, GithubUser.class);

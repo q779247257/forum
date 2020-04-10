@@ -71,7 +71,6 @@ public class User {
         this.gmtModified = gmtModified;
     }
 
-
     @Override
     public String toString() {
         return "User{" +
@@ -81,6 +80,7 @@ public class User {
                 ", token='" + token + '\'' +
                 ", gmtCreate=" + gmtCreate +
                 ", gmtModified=" + gmtModified +
+                ", bio='" + bio + '\'' +
                 '}';
     }
 }
