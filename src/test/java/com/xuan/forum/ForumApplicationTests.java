@@ -1,4 +1,4 @@
-package com.xuan.forum.forum;
+package com.xuan.forum;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
