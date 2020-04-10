@@ -71,3 +71,5 @@ SET FOREIGN_KEY_CHECKS = 1;
 
 ```
 [Mybatis](https://blog.mybatis.org/)
+
+[Http Client](http://hc.apache.org/)

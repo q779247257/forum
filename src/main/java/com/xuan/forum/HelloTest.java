@@ -26,19 +26,23 @@ public class HelloTest {
         //获取全部cookie
         Cookie[] cookies = request.getCookies();
 
-        //遍历全部Cookie
-        for (Cookie cookie : cookies){
-            if (cookie.getName().equals("token")){
-                //获取token
-                String token = cookie.getValue();
-                User user = userMapper.findByToken(token);
-                //如果数据库中有token的话，代表已经登录
-                if (user != null){
-                    request.getSession().setAttribute("user",user);
+        if (cookies != null){
+            //遍历全部Cookie
+            for (Cookie cookie : cookies){
+                if (cookie.getName().equals("token")){
+                    //获取token
+                    String token = cookie.getValue();
+                    User user = userMapper.findByToken(token);
+                    //如果数据库中有token的话，代表已经登录
+                    if (user != null){
+                        request.getSession().setAttribute("user",user);
+                        System.out.println("用户处于登录状态，用户放入Session的信息为"+user);
+                    }
+                    break;
                 }
-                break;
             }
         }
+
 
         return "hello";
     }

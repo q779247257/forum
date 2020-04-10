@@ -1,9 +1,7 @@
 package com.xuan.forum.mapper;
 
 import com.xuan.forum.model.User;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 /**
  * @创建人： xuanxuan
@@ -11,6 +9,8 @@ import org.apache.ibatis.annotations.Select;
  * @描述：
  */
 public interface UserMapper {
+
+
     /**
      * 根据用户插入
      * @param user
@@ -27,6 +27,7 @@ public interface UserMapper {
      * @return
      */
 
+
     @Select("SELECT" +
             " id," +
             " account_id," +
@@ -34,7 +35,15 @@ public interface UserMapper {
             " token," +
             " gmt_create," +
             " gmt_modified" +
-            " FROM user" +
-            " WHERE token = #{token}")
+            " FROM user WHERE token = #{token}")
+    @Results(id ="userMap" , value = {
+                    @Result(id=true,column = "id",property = "id" ),
+                    @Result(column = "name",property = "name"),
+                    @Result(column = "account_id",property = "accountId"),
+                    @Result(column = "token",property = "token"),
+                    @Result(column = "gmt_create",property = "gmtCreate"),
+                    @Result(column = "gmt_modified",property = "gmtModified"),
+                    @Result(column = "bio",property = "bio")
+            })
     User findByToken(@Param("token") String token);
 }
