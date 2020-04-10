@@ -45,11 +45,11 @@
             <version>1.2.60</version>
         </dependency>
 
-        <!-- H2数据库 -->
+<!--        mysql 数据库-->
         <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-            <version>1.4.199</version>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <scope>runtime</scope>
         </dependency>
 
         <dependency>

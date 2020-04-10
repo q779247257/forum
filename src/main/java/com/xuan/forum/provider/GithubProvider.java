@@ -56,13 +56,16 @@ public class GithubProvider {
             Request request = new Request.Builder()
                     .url(getUrl)
                     .build();
-        try (Response response = client.newCall(request).execute()) {
+        try {
+            Response response = client.newCall(request).execute();
             //获取git官方返回的json
             String string = response.body().string();
-                GithubUser githubUser = JSON.parseObject(string, GithubUser.class);
-                return githubUser;
+            GithubUser githubUser = JSON.parseObject(string, GithubUser.class);
+            //拿到github的账户资料后再关闭
+            response.close();
+            return githubUser;
             } catch (Exception e) {
-                e.printStackTrace();
+            e.printStackTrace();
             }
         return null;
     }

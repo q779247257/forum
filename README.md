@@ -23,31 +23,46 @@
 
 [FastJson](https://github.com/alibaba/fastjson)
 
-[H2数据库](http://www.h2database.com/html/main.html)
+[H2数据库 已替换](http://www.h2database.com/html/main.html)
 
-H2数据库对应的sql脚本
-```h2
-create table USER
-(
-    ID           INTEGER default NEXT VALUE FOR "PUBLIC"."SYSTEM_SEQUENCE_33DF8013_B1FB_4F67_86A0_3DE6271AE67E" auto_increment,
-    ACCOUNT_ID   VARCHAR(100),
-    NAME         VARCHAR(50),
-    TOKEN        CHAR(36),
-    GMT_CREATE   BIGINT,
-    GME_MODIFIED BIGINT,
-    constraint USER_PK
-        primary key (ID)
-);
-comment on column USER.ID is '用户id';
-comment on column USER.ACCOUNT_ID is 'github 账户id';
-comment on column USER.NAME is '名字';
-comment on column USER.TOKEN is 'Cookie作为token  使用uuid作为token';
-comment on column USER.GMT_CREATE is 'bigint 对应 long类型 存储时间戳';
-comment on column USER.GME_MODIFIED is '修改时间，存储的为时间戳';
-```
-设置H2数据库的sa账户的密码脚本
-```h2
-create user if not exists sa password '123';
-alter user sa admin true;
+[Mysql](https://www.mysql.com/)
+
+Mysql数据库对应的sql脚本
+```mysql
+/*
+ Navicat Premium Data Transfer
+
+ Source Server         : 本地数据库
+ Source Server Type    : MySQL
+ Source Server Version : 80019
+ Source Host           : localhost:3306
+ Source Schema         : forum
+
+ Target Server Type    : MySQL
+ Target Server Version : 80019
+ File Encoding         : 65001
+
+ Date: 10/04/2020 11:27:50
+*/
+
+SET NAMES utf8mb4;
+SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+-- Table structure for user
+-- ----------------------------
+DROP TABLE IF EXISTS `user`;
+CREATE TABLE `user`  (
+  `id` int(0) NOT NULL AUTO_INCREMENT COMMENT 'id键位',
+  `account_id` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT 'github 账户id',
+  `name` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '名字对应github login账户',
+  `token` char(36) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '使用uuid作为token',
+  `gmt_create` bigint(0) NULL DEFAULT NULL COMMENT '对应long类型 存储新增数据的时间戳',
+  `gmt_modified` bigint(0) NULL DEFAULT NULL COMMENT '对应long类型 存储修改数据数据的时间戳',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+SET FOREIGN_KEY_CHECKS = 1;
+
 ```
 [Mybatis](https://blog.mybatis.org/)
