@@ -57,7 +57,7 @@ public class GithubProvider {
      * H2Http 发送 get请求  暂时弃用 有时候会包 SocketException
      * 根据accessToken  获取github用户的资料
      * @param accessToken
-     * @return
+     * @return GithubUser 存放 git账户相关信息
      */
     public GithubUser getUser(String accessToken ){
         String getUrl = "https://api.github.com/user?access_token="+accessToken;
@@ -94,7 +94,6 @@ public class GithubProvider {
         HttpGet httpGet = new HttpGet(getUrl);
         httpGet.setProtocolVersion(HttpVersion.HTTP_1_0);
         httpGet.addHeader(HTTP.CONN_DIRECTIVE, HTTP.CONN_CLOSE);
-
 
         CloseableHttpResponse response= null;
         try {
