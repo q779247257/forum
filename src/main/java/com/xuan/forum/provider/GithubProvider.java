@@ -67,12 +67,12 @@ public class GithubProvider {
             Request request = new Request.Builder()
                     .url(getUrl)
                     .build();
-        try {
-            Response response = client.newCall(request).execute();
+        try (Response response = client.newCall(request).execute();){
             //获取git官方返回的json
             String string = response.body().string();
             GithubUser githubUser = JSON.parseObject(string, GithubUser.class);
             //拿到github的账户资料后再关闭 防止报文异常关闭
+
             return githubUser;
             } catch (Exception e) {
             e.printStackTrace();
@@ -92,8 +92,8 @@ public class GithubProvider {
         CloseableHttpClient client = HttpClients.createDefault();
         // 通过httpget方式来实现我们的get请求
         HttpGet httpGet = new HttpGet(getUrl);
-        httpGet.setProtocolVersion(HttpVersion.HTTP_1_0);
-        httpGet.addHeader(HTTP.CONN_DIRECTIVE, HTTP.CONN_CLOSE);
+//        httpGet.setProtocolVersion(HttpVersion.HTTP_1_0);
+//        httpGet.addHeader(HTTP.CONN_DIRECTIVE, HTTP.CONN_CLOSE);
 
         CloseableHttpResponse response= null;
         try {

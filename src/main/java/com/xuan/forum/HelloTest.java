@@ -27,12 +27,6 @@ public class HelloTest {
         return "hello";
     }
 
-    //默认跳转路径论坛的首页
-    @GetMapping("/")
-    public String index(){
-        return "hello";
-    }
-
     @Autowired(required = false)
     private UserMapper userMapper;
 
