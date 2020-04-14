@@ -1,6 +1,7 @@
 package com.xuan.forum.dto;
 
 import com.xuan.forum.model.User;
+import lombok.Data;
 
 import java.util.UUID;
 
@@ -9,6 +10,7 @@ import java.util.UUID;
  * @创建时间： 2020/4/9
  * @描述：
  */
+@Data
 public class GithubUser {
     //github 登录的账号
     private String login;
@@ -18,49 +20,9 @@ public class GithubUser {
     private Long id;
     //github 的账号描述
     private String bio;
+    //github 的头像
+    private String avatar_url;
 
-
-    public String getLogin() {
-        return login;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getBio() {
-        return bio;
-    }
-
-    public void setBio(String bio) {
-        this.bio = bio;
-    }
-
-    @Override
-    public String toString() {
-        return "GithubUser{" +
-                "login='" + login + '\'' +
-                ", name='" + name + '\'' +
-                ", id=" + id +
-                ", bio='" + bio + '\'' +
-                '}';
-    }
 
     /**
      * dto 转为model类 User gmtModified更新的时间戳为null
@@ -75,7 +37,21 @@ public class GithubUser {
         user.setAccountId(String.valueOf(this.getId()));
         //设置新增时间为当前系统时间戳
         user.setGmtCreate(System.currentTimeMillis());
+        //设置账号描述
         user.setBio(this.getBio());
+        //设置头像地址
+        user.setAvatarUrl(this.getAvatar_url());
         return user;
+    }
+
+    @Override
+    public String toString() {
+        return "GithubUser{" +
+                "login='" + login + '\'' +
+                ", name='" + name + '\'' +
+                ", id=" + id +
+                ", bio='" + bio + '\'' +
+                ", avatar_url='" + avatar_url + '\'' +
+                '}';
     }
 }

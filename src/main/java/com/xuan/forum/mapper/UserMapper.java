@@ -16,9 +16,9 @@ public interface UserMapper {
      * @param user
      */
     @Insert("insert into user " +
-            "(name,account_id,token,gmt_create,gmt_modified,bio)" +
+            "(name,account_id,token,gmt_create,gmt_modified,bio,avatar_url)" +
             " values " +
-            "(#{name},#{accountId},#{token},#{gmtCreate},#{gmtModified},#{bio})")
+            "(#{name},#{accountId},#{token},#{gmtCreate},#{gmtModified},#{bio},#{avatarUrl})")
      void insert(User user);
 
     /**
@@ -44,7 +44,9 @@ public interface UserMapper {
                     @Result(column = "token",property = "token"),
                     @Result(column = "gmt_create",property = "gmtCreate"),
                     @Result(column = "gmt_modified",property = "gmtModified"),
-                    @Result(column = "bio",property = "bio")
+                    @Result(column = "bio",property = "bio"),
+                    @Result(column = "avatar_url",property = "avatarUrl")
+
             })
     User findByToken(@Param("token") String token);
 }
