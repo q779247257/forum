@@ -72,7 +72,6 @@ public class GithubProvider {
             String string = response.body().string();
             GithubUser githubUser = JSON.parseObject(string, GithubUser.class);
             //拿到github的账户资料后再关闭 防止报文异常关闭
-
             return githubUser;
             } catch (Exception e) {
             e.printStackTrace();

@@ -30,6 +30,11 @@ public class HelloTest {
     @Autowired(required = false)
     private UserMapper userMapper;
 
+    @GetMapping("/echo")
+    public String echo(){
+        return "test";
+    }
+
     //默认跳转路径(首页)
     @GetMapping("/")
     public String index(HttpServletRequest request){

@@ -16,6 +16,12 @@ body {
     margin-bottom: 15px;
 }
 
+.test_desc{
+    font-size: 12px;
+    font-weight: normal;
+    color: #999;
+}
+
 /*.container-fluid {*/
 /*    background-color: #efefef;*/
 
