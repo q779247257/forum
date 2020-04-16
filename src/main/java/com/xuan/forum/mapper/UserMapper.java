@@ -26,8 +26,6 @@ public interface UserMapper {
      * @param token 查询的token
      * @return
      */
-
-
     @Select("SELECT" +
             " id," +
             " account_id," +

@@ -58,7 +58,7 @@
             <div class="col-lg-9 .col-md-12 .col-sm-12 .col-xs-12">
                 <h3><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>发起</h3>
                 <hr>
-                <from action="">
+                <form action="/publish" method="post">
                     <!--                    问题标题-->
                     <div class="form-group">
                         <label for="title">问题标题（简单扼要）：</label>
@@ -73,17 +73,18 @@
                     <!--                添加标签-->
                     <div class="form-group">
                         <label for="title">添加标签：</label>
-                        <input type="text" class="form-control" id="tag" name="tag" placeholder="输入标签，以，（逗号）分隔开">
+                        <input type="text" class="form-control" id="tag" name="tag" placeholder="输入标签，以，（逗号）分隔开" />
+                        <input  type="hidden" th:value="${session.user.id}" class="form-control" name="userId" />
                     </div>
-                    <button type="button" class="btn btn-success btn-publish">提交</button>
-                </from>
+                    <span th:text="${error}"></span>
+                    <button type="submit" class="btn btn-success btn-publish">提交</button>
+                </form>
 
             </div>
 
             <div class="col-lg-3 .col-md-12 .col-sm-12 .col-xs-12">
                 <h3>问题发起指南</h3>
                 <dl>
-
                     <dt>问题标题：</dt>
                     <dd>&nbsp请用精简的语言描述发布您的问题，不超过25个值字</dd>
                     <dt>问题补充：</dt>

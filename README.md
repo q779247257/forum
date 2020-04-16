@@ -67,6 +67,35 @@ SET FOREIGN_KEY_CHECKS = 1;
 
 
 ```
+
+question表sql脚本
+```mysql
+
+SET NAMES utf8mb4;
+SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+-- Table structure for question
+-- ----------------------------
+DROP TABLE IF EXISTS `question`;
+CREATE TABLE `question`  (
+  `id` int(0) NOT NULL AUTO_INCREMENT COMMENT '主键id',
+  `title` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '文章名称',
+  `description` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '文章内容',
+  `gmt_create` bigint(0) NULL DEFAULT NULL COMMENT '新增时间',
+  `gmt_modified` bigint(0) NULL DEFAULT NULL COMMENT '更新时间',
+  `creator` int(0) NULL DEFAULT 0 COMMENT '创建人id',
+  `comment_count` int(0) NULL DEFAULT 0 COMMENT '评论数',
+  `view_cout` int(0) NULL DEFAULT 0 COMMENT '阅读数',
+  ` like_count` int(0) NULL DEFAULT 0 COMMENT '点赞数',
+  `tag` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+SET FOREIGN_KEY_CHECKS = 1;
+
+
+```
 [Mybatis](https://blog.mybatis.org/)
 
 [Http Client](http://hc.apache.org/)
