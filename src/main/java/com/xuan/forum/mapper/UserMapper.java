@@ -47,4 +47,17 @@ public interface UserMapper {
 
             })
     User findByToken(@Param("token") String token);
+
+    @Select("SELECT" +
+            " id," +
+            " account_id," +
+            " name," +
+            " token," +
+            " gmt_create," +
+            " gmt_modified, " +
+            " bio, " +
+            "avatar_url " +
+            " FROM user WHERE id = #{id}")
+    @ResultMap("userMap")
+    User findById(@Param("id")Integer id);
 }

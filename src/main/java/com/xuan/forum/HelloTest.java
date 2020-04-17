@@ -1,5 +1,9 @@
 package com.xuan.forum;
 
+import com.xuan.forum.dto.QuestionDto;
+import com.xuan.forum.mapper.QuestionMapper;
+import com.xuan.forum.model.Question;
+import com.xuan.forum.service.QuestionService;
 import org.springframework.beans.factory.annotation.Value;
 import com.xuan.forum.mapper.UserMapper;
 import com.xuan.forum.model.User;
@@ -11,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * @创建人： xuanxuan
@@ -19,6 +24,9 @@ import javax.servlet.http.HttpServletRequest;
  */
 @Controller
 public class HelloTest {
+
+    @Autowired
+    private QuestionService questionService;
 
     @GetMapping("/hello")
     public String hello(@RequestParam(name = "name" ,required = false ,defaultValue = "空的默认值") String name, Model model){
@@ -37,7 +45,7 @@ public class HelloTest {
 
     //默认跳转路径(首页)
     @GetMapping("/")
-    public String index(HttpServletRequest request){
+    public String index(HttpServletRequest request , Model model){
         //获取全部cookie
         Cookie[] cookies = request.getCookies();
 
@@ -57,6 +65,9 @@ public class HelloTest {
                 }
             }
         }
+        List<QuestionDto> questionDtoList =  questionService.list();
+        model.addAttribute("questionDtoList",questionDtoList);
+
         return "hello";
     }
 
