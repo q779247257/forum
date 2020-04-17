@@ -17,7 +17,7 @@ public interface QuestionMapper {
     void insert(Question question);
 
     /** 查询全部的文章 问题*/
-    @Select("select * from question ")
+    @Select("select * from question ORDER BY gmt_modified DESC ")
     @Results(id ="questionMap" , value = {
             @Result(id=true,column = "id",property = "id" ),
             @Result(column = "title",property = "title"),
