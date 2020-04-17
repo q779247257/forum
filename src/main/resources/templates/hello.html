@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!--加这个标签以后才可以对model模型进行解析-->
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" >
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -34,7 +34,7 @@
             </form>
             <ul class="nav navbar-nav navbar-right">
                 <!--session 不为null则为登录状态-->
-                <li class="dropdown" th:if="${session.user != null}"><a href="/publi    sh">发布</a></li>
+                <li class="dropdown" th:if="${session.user != null}"><a href="/publish">发布</a></li>
                 <li class="dropdown" th:if="${session.user != null}">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                        aria-expanded="false" th:text="${session.user.getName() + '  欢迎你！'}">我<span class="caret"></span></a>
