@@ -26,8 +26,6 @@ public interface UserMapper {
      * @param token 查询的token
      * @return
      */
-
-
     @Select("SELECT" +
             " id," +
             " account_id," +
@@ -35,7 +33,8 @@ public interface UserMapper {
             " token," +
             " gmt_create," +
             " gmt_modified, " +
-            " bio " +
+            " bio ," +
+            " avatar_url " +
             " FROM user WHERE token = #{token}")
     @Results(id ="userMap" , value = {
                     @Result(id=true,column = "id",property = "id" ),
@@ -49,4 +48,17 @@ public interface UserMapper {
 
             })
     User findByToken(@Param("token") String token);
+
+    @Select("SELECT" +
+            " id," +
+            " account_id," +
+            " name," +
+            " token," +
+            " gmt_create," +
+            " gmt_modified, " +
+            " bio, " +
+            "avatar_url " +
+            " FROM user WHERE id = #{id}")
+    @ResultMap("userMap")
+    User findById(@Param("id")Integer id);
 }

@@ -67,12 +67,12 @@ public class GithubProvider {
             Request request = new Request.Builder()
                     .url(getUrl)
                     .build();
-        try (Response response = client.newCall(request).execute();){
+
+        try (Response response = client.newCall(request).execute()){
             //获取git官方返回的json
             String string = response.body().string();
             GithubUser githubUser = JSON.parseObject(string, GithubUser.class);
             //拿到github的账户资料后再关闭 防止报文异常关闭
-
             return githubUser;
             } catch (Exception e) {
             e.printStackTrace();
@@ -105,11 +105,10 @@ public class GithubProvider {
             HttpEntity entity = response.getEntity();
             // 通过EntityUtils 来将我们的数据转换成字符串
             resultStr = EntityUtils.toString(entity, "UTF-8");
-        } catch (SocketException e){
+            response.close();
+        } catch (IOException e){
             e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }finally {
+        } finally {
             httpGet.abort();
         }
         System.out.println("获取github账户资料的链接为："+getUrl);

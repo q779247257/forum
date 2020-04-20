@@ -16,6 +16,17 @@ body {
     margin-bottom: 15px;
 }
 
+.test_desc{
+    font-size: 12px;
+    font-weight: normal;
+    color: #999;
+}
+
+/* 文章上边距 */
+.media:first-child {
+    margin-top: 30px;
+}
+
 /*.container-fluid {*/
 /*    background-color: #efefef;*/
 
