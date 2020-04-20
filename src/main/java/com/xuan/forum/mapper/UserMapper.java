@@ -33,7 +33,8 @@ public interface UserMapper {
             " token," +
             " gmt_create," +
             " gmt_modified, " +
-            " bio " +
+            " bio ," +
+            " avatar_url " +
             " FROM user WHERE token = #{token}")
     @Results(id ="userMap" , value = {
                     @Result(id=true,column = "id",property = "id" ),

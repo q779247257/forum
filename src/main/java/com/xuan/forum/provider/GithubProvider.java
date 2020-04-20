@@ -106,11 +106,10 @@ public class GithubProvider {
             HttpEntity entity = response.getEntity();
             // 通过EntityUtils 来将我们的数据转换成字符串
             resultStr = EntityUtils.toString(entity, "UTF-8");
-        } catch (SocketException e){
+            response.close();
+        } catch (IOException e){
             e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }finally {
+        } finally {
             httpGet.abort();
         }
         System.out.println("获取github账户资料的链接为："+getUrl);

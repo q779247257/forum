@@ -55,7 +55,7 @@ public class AuthorizeController {
         String accessToken = githubProvider.getAccessToken(accessTokenDto);
 
         //根据access_token 获取github 的相关信息
-        GithubUser githubUser = githubProvider.getUser(accessToken);
+        GithubUser githubUser = githubProvider.getUserByAccessToken(accessToken);
 
         System.out.println("获取的githubUser:"+githubUser);
 
