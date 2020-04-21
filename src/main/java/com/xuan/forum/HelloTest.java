@@ -1,5 +1,6 @@
 package com.xuan.forum;
 
+import com.xuan.forum.dto.PaginationDto;
 import com.xuan.forum.dto.QuestionDto;
 import com.xuan.forum.mapper.QuestionMapper;
 import com.xuan.forum.model.Question;
@@ -29,9 +30,9 @@ public class HelloTest {
     private QuestionService questionService;
 
     @GetMapping("/hello")
-    public String hello(@RequestParam(name = "name" ,required = false ,defaultValue = "空的默认值") String name, Model model){
-        System.out.println("接受到的name："+name);
-        model.addAttribute("name",name);
+    public String hello(@RequestParam(name = "name", required = false, defaultValue = "空的默认值") String name, Model model) {
+        System.out.println("接受到的name：" + name);
+        model.addAttribute("name", name);
         return "hello";
     }
 
@@ -39,34 +40,38 @@ public class HelloTest {
     private UserMapper userMapper;
 
     @GetMapping("/echo")
-    public String echo(){
+    public String echo() {
         return "test";
     }
 
     //默认跳转路径(首页)
     @GetMapping("/")
-    public String index(HttpServletRequest request , Model model){
+    public String index(HttpServletRequest request, Model model,
+                        @RequestParam(name = "page", defaultValue = "1") Integer page, //当前页数
+                        @RequestParam(name = "size", defaultValue = "5") Integer size
+    ) {
         //获取全部cookie
         Cookie[] cookies = request.getCookies();
 
-        if (cookies != null){
+        if (cookies != null) {
             //遍历全部Cookie
-            for (Cookie cookie : cookies){
-                if (cookie.getName().equals("token")){
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("token")) {
                     //获取token
                     String token = cookie.getValue();
                     User user = userMapper.findByToken(token);
                     //如果数据库中有token的话，代表已经登录
-                    if (user != null){
-                        request.getSession().setAttribute("user",user);
-                        System.out.println("用户处于登录状态，用户放入Session的信息为"+user);
+                    if (user != null) {
+                        request.getSession().setAttribute("user", user);
+                        System.out.println("用户处于登录状态，用户放入Session的信息为" + user);
                     }
                     break;
                 }
             }
         }
-        List<QuestionDto> questionDtoList =  questionService.list();
-        model.addAttribute("questionDtoList",questionDtoList);
+//        List<QuestionDto> questionDtoList = questionService.list();
+        PaginationDto pagination = questionService.list(page, size);
+        model.addAttribute("pagination", pagination);
 
         return "hello";
     }

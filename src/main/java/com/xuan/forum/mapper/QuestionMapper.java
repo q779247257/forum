@@ -12,7 +12,6 @@ import java.util.List;
  */
 public interface QuestionMapper {
 
-
     @Insert("INSERT INTO question ( title, description, gmt_create, gmt_modified, creator, tag )VALUES(#{title},#{description},#{gmtCreate},#{gmtModified},#{creator}, #{tag} )")
     void insert(Question question);
 
@@ -32,4 +31,14 @@ public interface QuestionMapper {
 
     })
     List<Question> list();
+
+
+    @Select("SELECT * FROM question  ORDER BY gmt_modified DESC LIMIT #{offset} , #{size}")
+    @ResultMap("questionMap")
+    List<Question> pageList(@Param("offset") Integer offset, @Param("size") Integer size);
+
+
+    /** 查询总数 */
+    @Select("select count(1) from question")
+    Integer count();
 }
