@@ -36,4 +36,9 @@ public interface QuestionMapper {
     @Select("SELECT * FROM question  ORDER BY gmt_modified DESC LIMIT #{offset} , #{size}")
     @ResultMap("questionMap")
     List<Question> pageList(@Param("offset") Integer offset, @Param("size") Integer size);
+
+
+    /** 查询总数 */
+    @Select("select count(1) from question")
+    Integer count();
 }
