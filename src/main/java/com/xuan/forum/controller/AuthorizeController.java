@@ -67,6 +67,10 @@ public class AuthorizeController {
             user.setGmtModified(user.getGmtCreate());
             //添加数据
             userMapper.insert(user);
+
+             request.getSession().setAttribute("user", user);
+              System.out.println("首次登录成功，用户放入Session的信息为" + user);
+
             //添加cookie并写入信息
             response.addCookie(new Cookie("token",user.getToken()));
 
