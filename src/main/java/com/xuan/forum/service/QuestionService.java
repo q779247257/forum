@@ -105,6 +105,7 @@ public class QuestionService {
         }
         //设置页面承载元素
         paginationDto.setQuestionDtoList(questionDtoLit);
+        paginationDto.setQuestionTotalCount(totalCount);
         return paginationDto;
     }
 }

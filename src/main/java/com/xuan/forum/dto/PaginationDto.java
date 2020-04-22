@@ -22,6 +22,8 @@ public class PaginationDto {
     private boolean showNext;
     /** 是否有末页 */
     private boolean showEndPage;
+    /** 数据的数量 */
+    private Integer questionTotalCount;
     /** 当前页 */
     private Integer page;
     /** 最大页 */

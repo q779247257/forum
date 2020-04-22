@@ -68,6 +68,7 @@ public class ProfileController {
             model.addAttribute("sectionName","最新回复");
         }
 
+
         PaginationDto pagination = questionService.list(user.getId(), page, size);
         model.addAttribute("pagination", pagination);
 

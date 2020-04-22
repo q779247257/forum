@@ -52,7 +52,7 @@
                 <div class="list-group section">
                     <a href="/profile/questions"
                        th:class="${section.equals('questions')} ? 'list-group-item active' : 'list-group-item' ">我的问题
-                        <span class="badge">14</span></a>
+                        <span class="badge" th:text="${pagination.questionTotalCount}">14</span></a>
                     <a href="/profile/repiies"
                        th:class="${section.equals('repiies')} ? 'list-group-item active' : 'list-group-item' ">最新回复<span
                             class="badge">14</span></a>
@@ -68,14 +68,14 @@
         <div class="row" style="margin: 0 auto">
             <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12" >
                 <ul class="pagination">
-                    <li th:if="${pagination.showFirsPage}" ><a href="/?page=1">首页</a></li>
+                    <li th:if="${pagination.showFirsPage}" ><a th:href="@{'/profile/'  + ${section} + '?page=1'}">首页</a></li>
                     <li th:if="${pagination.showPrevious}" ><a th:href="@{'/profile/' + ${section} + '/?page=' + ${pagination.page -1} }" >上一页</a></li>
 
                     <li  th:each="info,infoState :${pagination.pages}" th:class="${pagination.page == info} ? 'active' : '' " >
-                        <a th:href="@{'/?page='+${info}}" th:text="${info}" ></a>
+                        <a th:href="@{'?page='+${info}}" th:text="${info}" ></a>
                     </li>
-                    <li th:if="${pagination.showNext}"><a th:href="@{'/profile/questions?page=' + ${pagination.page +1} }" >下一页</a></li>
-                    <li th:if="${pagination.showEndPage}"><a th:href="@{'/?page=' + ${pagination.totalPage} }"  >末页</a></li>
+                    <li th:if="${pagination.showNext}"><a th:href="@{'/profile/' + ${section} + '?page=' + ${pagination.page +1} }" >下一页</a></li>
+                    <li th:if="${pagination.showEndPage}"><a th:href="@{'/profile/' + ${section} + '?page=' + ${pagination.totalPage} }"  >末页</a></li>
                 </ul>
             </div>
         </div>
