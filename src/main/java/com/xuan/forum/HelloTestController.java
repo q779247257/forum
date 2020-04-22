@@ -24,7 +24,7 @@ import java.util.List;
  * @描述：
  */
 @Controller
-public class HelloTest {
+public class HelloTestController {
 
     @Autowired
     private QuestionService questionService;
