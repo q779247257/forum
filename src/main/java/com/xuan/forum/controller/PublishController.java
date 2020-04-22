@@ -51,6 +51,11 @@ public class PublishController {
         model.addAttribute("description",description);
         model.addAttribute("tag",tag);
         //校验参数
+        if (userId == null){
+            model.addAttribute("error","用户未登录");
+            return "publish";
+        }
+
         if (title == null || title.equals("")) {
             model.addAttribute("error","标题不能为null");
             return "publish";
@@ -67,25 +72,10 @@ public class PublishController {
 
 
         //获取全部cookie
-        Cookie[] cookies = request.getCookies();
-        User user = null;
-        if (cookies != null){
-            //遍历全部Cookie
-            for (Cookie cookie : cookies){
-                if (cookie.getName().equals("token")){
-                    //获取token
-                    String token = cookie.getValue();
-                    user = userMapper.findByToken(token);
-                    //如果数据库中有token的话，代表已经登录
-                    if (user != null){
-                        request.getSession().setAttribute("user",user);
-                    }
-                    break;
-                }
-            }
-        }
+        User user = (User) request.getSession().getAttribute("user");
+
         System.out.println("接受的userid为："+userId);
-        if (user == null || userId == null){
+        if (user == null ){
             model.addAttribute("error","用户未登录");
             return "publish";
         }

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<!--加这个标签以后才可以对model模型进行解析-->
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${sectionName + ' - PCF社区'}"></title>
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <!-- 可选的 Bootstrap 主题文件（一般不用引入） -->
+    <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/css/commnuity.css">
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="/js/bootstrap.min.js" type="text/javascript"></script>
+</head>
+<body>
+<!-- 导航栏部分引用 -->
+<div th:insert="~{navigation :: nav}"></div>
+
+<!-- 图标class glyphicon glyphicon-list -->
+<nav class="navbar navbar-default">
+    <div class="container-fluid profile" id="left_main">
+        <div class="row">
+            <!--左侧文章部分-->
+            <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+                <div th:each="info,infoStat :${pagination.questionDtoList}">
+                    <div class="media" style="margin-top: 30px">
+                        <div class="media-left media-middle">
+                            <a href="#">
+                                <img class="media-object img-rounded" style="width: 40px"
+                                     th:src="${info.user.avatarUrl}" alt="..."/>
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <h4 class="media-heading" th:text="${info.title}"></h4>
+<!--                            <span th:text="${info.description}"></span>-->
+                            <br>
+                            <span class="test_desc">
+                        <span th:text="${info.commentCount}"></span>个回复 ·  <span th:text="${info.viewCout}"></span>次浏览 ·
+                                问题发布时间<span
+                                    th:text="${#dates.format(info.getDateByLong(info.gmtCreate), 'yyyy-mm-dd hh:mm:ss')}"></span> ·
+                                最新评论时间<span
+                                    th:text="${#dates.format(info.getDateByLong(info.gmtModified), 'yyyy-mm-dd hh:mm:ss')}"></span>
+                        </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 左边文章部分结束 -->
+            <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+                <div class="list-group section">
+                    <a href="/profile/questions"
+                       th:class="${section.equals('questions')} ? 'list-group-item active' : 'list-group-item' ">我的问题
+                        <span class="badge" th:text="${pagination.questionTotalCount}">14</span></a>
+                    <a href="/profile/repiies"
+                       th:class="${section.equals('repiies')} ? 'list-group-item active' : 'list-group-item' ">最新回复<span
+                            class="badge">14</span></a>
+                    <a href="#" class="list-group-item">Morbi leo risus <span class="badge">14</span></a>
+                    <a href="#" class="list-group-item">Porta ac consectetur ac <span class="badge">15</span></a>
+                    <a href="#" class="list-group-item">Vestibulum at eros <span class="badge">16</span></a>
+                </div>
+            </div>
+            <!-- 左边文章列表部分结束 -->
+        </div>
+
+        <!--  文章下方分页列表开始 -->
+        <div class="row" style="margin: 0 auto">
+            <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12" >
+                <ul class="pagination">
+                    <li th:if="${pagination.showFirsPage}" ><a th:href="@{'/profile/'  + ${section} + '?page=1'}">首页</a></li>
+                    <li th:if="${pagination.showPrevious}" ><a th:href="@{'/profile/' + ${section} + '/?page=' + ${pagination.page -1} }" >上一页</a></li>
+
+                    <li  th:each="info,infoState :${pagination.pages}" th:class="${pagination.page == info} ? 'active' : '' " >
+                        <a th:href="@{'?page='+${info}}" th:text="${info}" ></a>
+                    </li>
+                    <li th:if="${pagination.showNext}"><a th:href="@{'/profile/' + ${section} + '?page=' + ${pagination.page +1} }" >下一页</a></li>
+                    <li th:if="${pagination.showEndPage}"><a th:href="@{'/profile/' + ${section} + '?page=' + ${pagination.totalPage} }"  >末页</a></li>
+                </ul>
+            </div>
+        </div>
+        <!-- 文章下方分页列表结束 -->
+
+    </div>
+</nav>
+
+</body>
+</html>

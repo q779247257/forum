@@ -22,6 +22,8 @@ public class PaginationDto {
     private boolean showNext;
     /** 是否有末页 */
     private boolean showEndPage;
+    /** 数据的数量 */
+    private Integer questionTotalCount;
     /** 当前页 */
     private Integer page;
     /** 最大页 */
@@ -52,6 +54,8 @@ public class PaginationDto {
         //最大页数 为总页面
         if (page >  this.totalPage){
             page =  this.totalPage;
+            //每页数据的时候 totalPage 会等于0
+            if (page == 0) page = 1;
         }
 
         this.page = page;

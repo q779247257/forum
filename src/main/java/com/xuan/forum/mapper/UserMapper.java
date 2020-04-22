@@ -61,4 +61,7 @@ public interface UserMapper {
             " FROM user WHERE id = #{id}")
     @ResultMap("userMap")
     User findById(@Param("id")Integer id);
+
+
+
 }

@@ -76,7 +76,8 @@ public class GithubProvider {
             return githubUser;
             } catch (Exception e) {
             e.printStackTrace();
-            }
+            }finally {
+        }
         return null;
     }
 
@@ -92,8 +93,6 @@ public class GithubProvider {
         CloseableHttpClient client = HttpClients.createDefault();
         // 通过httpget方式来实现我们的get请求
         HttpGet httpGet = new HttpGet(getUrl);
-//        httpGet.setProtocolVersion(HttpVersion.HTTP_1_0);
-//        httpGet.addHeader(HTTP.CONN_DIRECTIVE, HTTP.CONN_CLOSE);
 
         CloseableHttpResponse response= null;
         try {
