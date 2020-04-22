@@ -38,7 +38,21 @@ public interface QuestionMapper {
     List<Question> pageList(@Param("offset") Integer offset, @Param("size") Integer size);
 
 
-    /** 查询总数 */
+    /** 查询所有问题总数 */
     @Select("select count(1) from question")
     Integer count();
+
+    /** 查询用户问题总数 */
+    @Select("select count(1) from question where creator = #{userId}")
+    Integer countByUserId(@Param("userId")Integer userId);
+
+
+    /**
+     * 根据用户id查询问题
+     * @param userId 用户id
+     */
+    @Select("SELECT * FROM question where creator = #{userId}  ORDER BY gmt_modified DESC LIMIT #{offset} , #{size}")
+    @ResultMap("questionMap")
+    List<Question> pageListByUserId(@Param("userId")Integer userId, @Param("offset") Integer offset, @Param("size") Integer size);
+
 }

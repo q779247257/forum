@@ -52,6 +52,8 @@ public class PaginationDto {
         //最大页数 为总页面
         if (page >  this.totalPage){
             page =  this.totalPage;
+            //每页数据的时候 totalPage 会等于0
+            if (page == 0) page = 1;
         }
 
         this.page = page;
