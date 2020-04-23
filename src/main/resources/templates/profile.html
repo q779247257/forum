@@ -24,6 +24,7 @@
         <div class="row">
             <!--左侧文章部分-->
             <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+                <h2 th:text="${sectionName}"></h2>
                 <div th:each="info,infoStat :${pagination.questionDtoList}">
                     <div class="media" style="margin-top: 30px">
                         <div class="media-left media-middle">

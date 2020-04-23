@@ -111,6 +111,9 @@ public class QuestionService {
 
         QuestionDto questionDto = new QuestionDto();
         BeanUtils.copyProperties(question,questionDto);
+        //根据账户查询User
+        User byName = userMapper.findByName(questionDto.getCreator());
+        questionDto.setUser(byName);
         return questionDto;
     }
 }

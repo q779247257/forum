@@ -30,7 +30,7 @@ public class QuestionController {
      * @param id 文章id
      */
     @GetMapping("/question/{id}")
-    public void question(@PathVariable("id") Integer id ,
+    public String question(@PathVariable("id") Integer id ,
                          Model model){
 
         //根据文章id查询出来
@@ -39,6 +39,7 @@ public class QuestionController {
            logger.warn("不存在id为 ["+ id +"]的问题");
        }
        model.addAttribute("question",questionDto);
+       return "question";
     }
 
 }

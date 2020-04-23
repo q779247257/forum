@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<!--加这个标签以后才可以对model模型进行解析-->
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${question.title + ' - PCF社区'}"></title>
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <!-- 可选的 Bootstrap 主题文件（一般不用引入） -->
+    <link href="/css/bootstrap-theme.min.css" rel="stylesheet">
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="/js/bootstrap.min.js" type="text/javascript"></script>
+    <link href="/css/commnuity.css" rel="stylesheet">
+</head>
+<body>
+<!-- 导航栏部分引用 -->
+<div th:insert="~{navigation :: nav}"></div>
+
+<!-- 图标class glyphicon glyphicon-list -->
+<nav class="navbar navbar-default">
+    <div class="container-fluid profile" id="left_main">
+        <div class="row">
+            <!--左侧文章部分-->
+            <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+                <!-- 文章标题 -->
+                <h4 th:text="${question.title}"></h4>
+                <span class="test_desc">
+                           作者<span th:text=" ' ' + ${question.user.name}"></span> |
+                           发布时间<span
+                        th:text="${#dates.format(question.getDateByLong(question.gmtCreate), 'yyyy-mm-dd hh:mm:ss')}"></span> |
+                          阅读数 ·<span th:text="${question.viewCout}"></span>
+                        </span>
+                <hr  >
+                <!-- 问题描述开始 -->
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" th:text="${question.description}">
+
+                </div>
+                <!-- 问题描述结束 -->
+                <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+                <!-- 编辑按钮开始 -->
+                <a th:href="@{'/publish/' + ${question.id} }" style="color: #999; font-size: 13px">
+                    <span class="glyphicon glyphicon-tags" aria-hidden="true"/>编辑
+                </a>
+                <!-- 编辑按钮结束 -->
+
+
+            </div>
+            <!--左侧文章部分结束-->
+
+
+            <!-- 右侧侧边栏开始 -->
+            <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+                <!-- 发起人开始 -->
+                <div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <h3>发起人</h3>
+                        <div class="media-left media-middle">
+                            <a href="#">
+                                <img class="media-object img-rounded" style="width: 40px"
+                                     th:src="${question.user.avatarUrl}" alt="..."/>
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <h4 class="media-heading" >
+                                <span  th:text="${question.user.name}"></span>
+                            </h4>
+                            <span th:text="${question.user.bio}"></span>
+                            <br>
+                        </div>
+
+                </div>
+                <!-- 发起人结束 -->
+                <hr class=" col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <!-- 相关问题开始 -->
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 15px">
+                    <h3>相关问题</h3>
+                </div>
+                <!-- 相关问题结束 -->
+            </div>
+            <!-- 右侧侧边栏结束 -->
+
+        </div>
+
+
+        <!--  文章下方分页列表开始 -->
+        <div class="row" style="margin: 0 auto">
+            <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+            </div>
+        </div>
+        <!-- 文章下方分页列表结束 -->
+
+    </div>
+</nav>
+
+</body>
+</html>

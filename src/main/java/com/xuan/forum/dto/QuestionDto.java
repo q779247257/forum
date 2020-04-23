@@ -30,8 +30,8 @@ public class QuestionDto {
     private Long gmtCreate;
     /**更新时间*/
     private Long gmtModified;
-    /**创建人id*/
-    private Integer creator;
+    /**问题创建人的github账户*/
+    private String creator;
     /**评论数*/
     private Integer commentCount;
     /**阅读数*/
