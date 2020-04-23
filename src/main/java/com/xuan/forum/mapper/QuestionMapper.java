@@ -1,5 +1,6 @@
 package com.xuan.forum.mapper;
 
+import com.xuan.forum.dto.QuestionDto;
 import com.xuan.forum.model.Question;
 import org.apache.ibatis.annotations.*;
 
@@ -43,16 +44,19 @@ public interface QuestionMapper {
     Integer count();
 
     /** 查询用户问题总数 */
-    @Select("select count(1) from question where creator = #{userId}")
-    Integer countByUserId(@Param("userId")Integer userId);
+    @Select("select count(1) from question where creator = #{githubUsername}")
+    Integer countByUserId(@Param("githubUsername")String githubUsername);
 
 
     /**
-     * 根据用户id查询问题
-     * @param userId 用户id
+     * 根据用户的github账户查询问题
+     * @param githubUsername github 账号
      */
-    @Select("SELECT * FROM question where creator = #{userId}  ORDER BY gmt_modified DESC LIMIT #{offset} , #{size}")
+    @Select("SELECT * FROM question where creator = #{githubUsername}  ORDER BY gmt_modified DESC LIMIT #{offset} , #{size}")
     @ResultMap("questionMap")
-    List<Question> pageListByUserId(@Param("userId")Integer userId, @Param("offset") Integer offset, @Param("size") Integer size);
+    List<Question> pageListByUserId(@Param("githubUsername")String githubUsername, @Param("offset") Integer offset, @Param("size") Integer size);
 
+    @Select("select * from question where id = #{id} ")
+    @ResultMap("questionMap")
+    Question getById(@Param("id")Integer questionId);
 }

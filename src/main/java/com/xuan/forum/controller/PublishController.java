@@ -40,7 +40,7 @@ public class PublishController {
       @RequestParam("title") String title,//文章标题
       @RequestParam("description") String description,//文章内容
       @RequestParam("tag") String tag,//文章标签（逗号隔开）
-      @RequestParam(value = "userId",required = false) Integer userId, //用户的id
+      @RequestParam(value = "gitUser",required = false) String gitUser, //github的账户
       Model model,
       HttpServletRequest request
     ){
@@ -48,7 +48,7 @@ public class PublishController {
         model.addAttribute("description",description);
         model.addAttribute("tag",tag);
         //校验参数
-        if (userId == null){
+        if (gitUser == null){
             model.addAttribute("error","用户未登录");
             return "publish";
         }
@@ -79,12 +79,14 @@ public class PublishController {
         //创建发布问题插入数据库
         long paramDateLong = System.currentTimeMillis();
         Question question = new Question();
+        //设置标题
         question.setTitle(title);
+        //设置描述
         question.setDescription(description);
         question.setTag(tag);//设置标签
         question.setGmtCreate(paramDateLong);
         question.setGmtModified(paramDateLong);
-        question.setCreator(userId);
+        question.setCreator(gitUser);
         questionMapper.insert(question);
         //回到首页
         return "redirect:/";

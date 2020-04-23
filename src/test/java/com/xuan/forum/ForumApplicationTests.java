@@ -2,7 +2,9 @@ package com.xuan.forum;
 
 import com.xuan.forum.dto.PaginationDto;
 import com.xuan.forum.mapper.QuestionMapper;
+import com.xuan.forum.mapper.UserMapper;
 import com.xuan.forum.model.Question;
+import com.xuan.forum.model.User;
 import com.xuan.forum.service.QuestionService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,16 +20,16 @@ class ForumApplicationTests {
     private QuestionService questionService;
     @Autowired
     private QuestionMapper questionMapper;
+    @Autowired
+    private UserMapper userMapper;
 
 
     /** 页面数据展示*/
     @Test
     public void contextLoads() {
         AtomicInteger cout = new AtomicInteger();
-        questionService.list().forEach(item -> {
+        questionService.list(1,10).getQuestionDtoList().forEach(item -> {
             System.out.println(item);
-            System.out.println(cout +"次输出数据");
-            cout.addAndGet(1);
         });
     }
 
@@ -41,5 +43,12 @@ class ForumApplicationTests {
             System.out.println(item);
         });
     }
+    @Test
+    public void testUser(){
+        User user = userMapper.findByName("q779247257");
+        System.out.println("查询到数据："+user);
+    }
+
+
 
 }

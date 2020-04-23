@@ -25,20 +25,6 @@ public class QuestionService {
     @Autowired
     private UserMapper userMapper;
 
-    public List<QuestionDto> list() {
-        List<Question> questionList = questionMapper.list();
-        List<QuestionDto> questionDtos = new ArrayList<>();
-        for (Question question : questionList){
-            User user = userMapper.findById(question.getCreator());
-            QuestionDto questionDto = new QuestionDto();
-            //对象copy
-            BeanUtils.copyProperties(question,questionDto);
-            questionDto.setUser(user);
-            questionDtos.add(questionDto);
-         }
-        return questionDtos;
-
-    }
 
     /**
      * 分页数据 service层
@@ -60,12 +46,19 @@ public class QuestionService {
         List<Question> questionList = questionMapper.pageList(offset,size);
         List<QuestionDto> questionDtoLit = new ArrayList<>();
         for (Question question : questionList){
-            //根据id查询用户
-            User user = userMapper.findById(question.getCreator());
+            //根据github账户查询用户
+            User user = userMapper.findByName(question.getCreator());
+
             QuestionDto questionDto = new QuestionDto();
             //对象copy
             BeanUtils.copyProperties(question,questionDto);
-            questionDto.setUser(user);
+            if (null != user){
+                questionDto.setUser(user);
+            }else {
+                questionDto.setUser(new User());
+
+            }
+
             questionDtoLit.add(questionDto);
         }
         //设置页面承载元素
@@ -80,23 +73,23 @@ public class QuestionService {
      * @param page 页数
      * @param size 每页展示数量
      */
-    public PaginationDto list(Integer userId, Integer page, Integer size) {
+    public PaginationDto list(String userName, Integer page, Integer size) {
         /** 获取所有的数量 */
-        Integer totalCount = questionMapper.countByUserId(userId);
+        Integer totalCount = questionMapper.countByUserId(userName);
 
         PaginationDto paginationDto = new PaginationDto();
         //设置分页参数
         paginationDto.setPagination(totalCount,page,size);
         //获取数据库查询 offset 参数
         Integer offset = size * (paginationDto.getPage() - 1);
-        //查询分页所展示的数据
-        List<Question> questionList = questionMapper.pageListByUserId(userId,offset,size);
+        //查询分页所展示的数据（根据github账号）
+        List<Question> questionList = questionMapper.pageListByUserId(userName,offset,size);
 
         List<QuestionDto> questionDtoLit = new ArrayList<>();
         //遍历分页查询到的数据
         for (Question question : questionList){
-            //根据id查询用户
-            User user = userMapper.findById(question.getCreator());
+            //根据git账户查询用户
+            User user = userMapper.findByName(question.getCreator());
             QuestionDto questionDto = new QuestionDto();
             //对象copy
             BeanUtils.copyProperties(question,questionDto);
@@ -107,5 +100,17 @@ public class QuestionService {
         paginationDto.setQuestionDtoList(questionDtoLit);
         paginationDto.setQuestionTotalCount(totalCount);
         return paginationDto;
+    }
+
+    /**
+     * 根据id获取问题
+     * @param id 问题id
+     */
+    public QuestionDto getById(Integer id) {
+       Question question =  questionMapper.getById(id);
+
+        QuestionDto questionDto = new QuestionDto();
+        BeanUtils.copyProperties(question,questionDto);
+        return questionDto;
     }
 }

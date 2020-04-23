@@ -80,6 +80,7 @@ public class GithubProvider {
         BufferedReader in = null;
         try {
             String urlNameString = url + "?" + param;
+            logger.info("github获取资料的连接是："+urlNameString);
             URL realUrl = new URL(urlNameString);
             // 打开和URL之间的连接
             HttpURLConnection connection = (HttpURLConnection)realUrl.openConnection();
@@ -104,8 +105,7 @@ public class GithubProvider {
                 result += line;
             }
         } catch (Exception e) {
-            logger.info("获取github的资料时异常:"+e);
-            e.printStackTrace();
+            logger.error("获取github的资料时异常:"+e);
         }
         // 使用finally块来关闭输入流
         finally {
