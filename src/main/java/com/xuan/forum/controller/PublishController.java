@@ -5,15 +5,12 @@ import com.xuan.forum.mapper.UserMapper;
 import com.xuan.forum.model.Question;
 import com.xuan.forum.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.expression.spel.SpelEvaluationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
 
@@ -74,7 +71,6 @@ public class PublishController {
         //获取全部cookie
         User user = (User) request.getSession().getAttribute("user");
 
-        System.out.println("接受的userid为："+userId);
         if (user == null ){
             model.addAttribute("error","用户未登录");
             return "publish";

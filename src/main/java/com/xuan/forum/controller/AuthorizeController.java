@@ -1,10 +1,13 @@
 package com.xuan.forum.controller;
 
+import com.xuan.forum.config.SessionInterceptor;
 import com.xuan.forum.dto.GithubAccessTokenDto;
 import com.xuan.forum.dto.GithubUser;
 import com.xuan.forum.mapper.UserMapper;
 import com.xuan.forum.model.User;
 import com.xuan.forum.provider.GithubProvider;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -30,6 +33,9 @@ public class AuthorizeController {
     private String clientSecret;
     @Value("${github.redirect.url}")
     private String redirectUr;
+
+    private static Logger logger = LoggerFactory.getLogger(AuthorizeController.class);
+
 
 
 
@@ -57,7 +63,7 @@ public class AuthorizeController {
         //根据access_token 获取github 的相关信息
         GithubUser githubUser = githubProvider.getUserByAccessToken(accessToken);
 
-        System.out.println("获取的githubUser:"+githubUser);
+        logger.info("获取的githubUser"+githubUser);
 
         //如果user不为null则登录成功
         if (githubUser != null){
@@ -69,7 +75,7 @@ public class AuthorizeController {
             userMapper.insert(user);
 
              request.getSession().setAttribute("user", user);
-              System.out.println("首次登录成功，用户放入Session的信息为" + user);
+            logger.info("首次登陆成功，用户放入的Session的信息："+user);
 
             //添加cookie并写入信息
             response.addCookie(new Cookie("token",user.getToken()));

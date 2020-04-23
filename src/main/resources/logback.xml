@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 从高到地低 OFF 、 FATAL 、 ERROR 、 WARN 、 INFO 、 DEBUG 、 TRACE 、 ALL -->  
+<configuration scan="false"> 
+
+    <property name="LOG_HOME" value="log" />  
+    
+    <!-- 控制台 -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">  
+	    <encoder>
+	    	<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %5p --- [%20.20t] %-40.40logger{39} : %m%n</pattern>
+	    </encoder>
+    </appender>  
+
+    <!-- 普通日志文件 -->   
+    <appender name="GENERAL_FILE"  class="ch.qos.logback.core.rolling.RollingFileAppender">   
+    	<File>${LOG_HOME}/werewolf.log</File>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <FileNamePattern>${LOG_HOME}/werewolf.log.%d{yyyy-MM-dd}.%i</FileNamePattern>
+		    <MaxFileSize>10MB</MaxFileSize>
+            <MaxHistory>30</MaxHistory>
+        </rollingPolicy>  
+	    <encoder>
+	    	<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %5p --- [%20.20t] %-40.40logger{39} : %m%n</pattern>
+	    </encoder>         
+    </appender>
+
+    <!-- 监控日志文件 -->  
+    <appender name="MONITOR_FILE"  class="ch.qos.logback.core.rolling.RollingFileAppender">   
+    	<File>${LOG_HOME}/monitor/werewolf_monitor.log</File>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <FileNamePattern>${LOG_HOME}/monitor/werewolf_monitor.log.%d{yyyy-MM-dd}.%i</FileNamePattern>
+		    <!--日志文件最大的大小-->
+		    <MaxFileSize>10MB</MaxFileSize>
+            <MaxHistory>30</MaxHistory>
+        </rollingPolicy>  
+    	<encoder>  
+ 			<!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符--> 
+	    	<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %5p --- [%20.20t] %-12.12logger{39} : %m%n</pattern>
+        </encoder>       
+    </appender> 
+
+    <!-- Msg日志文件 -->  
+    <appender name="MSG_FILE"  class="ch.qos.logback.core.rolling.RollingFileAppender">   
+    	<File>${LOG_HOME}/msg/werewolf_msg.log</File>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <FileNamePattern>${LOG_HOME}/msg/werewolf_msg.log.%d{yyyy-MM-dd}.%i</FileNamePattern>
+		    <!--日志文件最大的大小-->
+		    <MaxFileSize>10MB</MaxFileSize>
+            <MaxHistory>30</MaxHistory>
+        </rollingPolicy>  
+    	<encoder>  
+ 			<!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符--> 
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %5p --- [%20.20t] %-12.12logger{39} : %m%n</pattern>
+        </encoder>            
+    </appender>
+
+    <!-- Session日志文件 -->  
+    <appender name="SESSION_FILE"  class="ch.qos.logback.core.rolling.RollingFileAppender">   
+    	<File>${LOG_HOME}/session/werewolf_session.log</File>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <FileNamePattern>${LOG_HOME}/session/werewolf_session.log.%d{yyyy-MM-dd}.%i</FileNamePattern>
+		    <!--日志文件最大的大小-->
+		    <MaxFileSize>10MB</MaxFileSize>
+            <MaxHistory>30</MaxHistory>
+        </rollingPolicy>  
+    	<encoder>  
+ 			<!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符--> 
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %5p --- [%20.20t] %-12.12logger{39} : %m%n</pattern>
+        </encoder>
+    </appender>
+                    
+	<logger name="java.sql" level="WARN"/>
+	<logger name="io.lettuce" level="WARN"/>
+	<logger name="org.springframework" level="WARN"/>
+	<logger name="com.zaxxer.hikari" level="WARN"/>
+	<logger name="org.apache.zookeeper" level="WARN"/>
+	<logger name="org.I0Itec.zkclient" level="WARN"/>
+
+	<!--监控日志-->
+	<logger name="MointorLog" level="INFO" additivity="false" >  
+    	<appender-ref ref="MONITOR_FILE"/>  
+  	</logger> 	
+
+	<!-- Msg处理日志 -->
+	<logger name="MsgLog" level="WARN">  
+    	<appender-ref ref="MSG_FILE"/>  
+  	</logger>
+
+	<!-- Session日志 -->
+	<logger name="SessionLog" level="INFO">  
+    	<appender-ref ref="SESSION_FILE"/>  
+  	</logger>
+  	  	  		      	
+	<root level="INFO">
+<!-- 		<appender-ref ref="STDOUT" /> -->
+		<appender-ref ref="GENERAL_FILE" />
+	</root>   
+</configuration>   
