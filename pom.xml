@@ -81,12 +81,6 @@
             <version>1.18.12</version>
         </dependency>
 
-        <!-- Spring Boot 热部署插件 -->
-<!--        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-devtools</artifactId>
-            <optional>true</optional>
-        </dependency>-->
     </dependencies>
 
     <build>

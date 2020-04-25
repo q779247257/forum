@@ -3,6 +3,9 @@ package com.xuan.forum.config;
 import com.xuan.forum.dto.PaginationDto;
 import com.xuan.forum.mapper.UserMapper;
 import com.xuan.forum.model.User;
+import com.xuan.forum.provider.GithubProvider;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
@@ -21,13 +24,15 @@ import javax.servlet.http.HttpServletResponse;
 
 @Component
 public class SessionInterceptor implements HandlerInterceptor {
+    private static Logger logger = LoggerFactory.getLogger(SessionInterceptor.class);
+
     @Autowired
     private UserMapper userMapper;
 
     //这个方法是在访问接口之前执行的，我们只需要在这里写验证登陆状态的业务逻辑，就可以在用户调用指定接口之前验证登陆状态了
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        System.out.println("进入拦截器，拦截路径："+request.getRequestURI());
+        logger.info("进入拦截器，拦截路径"+request.getRequestURI());
         //获取全部cookie
         Cookie[] cookies = request.getCookies();
         if (cookies != null) {
@@ -40,12 +45,13 @@ public class SessionInterceptor implements HandlerInterceptor {
                     //如果数据库中有token的话，代表已经登录
                     if (user != null) {
                         request.getSession().setAttribute("user", user);
-                        System.out.println("拦截器通过成功，用户放入Session的信息为" + user);
+                        logger.info("拦截器通过成功，用户放入Session的信息为" + user);
                         return true;
                     }
                 }
             }
         }
+        logger.info("拦截器不通过 返回首页！");
         //拦截验证不通过 返回首页
         response.sendRedirect("/");
         return false;

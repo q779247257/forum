@@ -27,7 +27,7 @@
                 <h3><span class="class glyphicon glyphicon-list" aria-hidden="true"/>发现</h3>
                 <hr>
                 <!-- 文章列表部分 -->
-                <div th:each="info,infoStat :${pagination.questionDtoList}" >
+                <div th:if="${pagination.questionDtoList != null}" th:each="info,infoStat :${pagination.questionDtoList}" >
                     <div class="media" style="margin-top: 30px">
                         <div class="media-left media-middle">
                             <a href="#">
@@ -36,7 +36,9 @@
                             </a>
                         </div>
                         <div class="media-body">
-                            <h4 class="media-heading" th:text="${info.title}"></h4>
+                            <h4 class="media-heading" >
+                                <a  th:text="${info.title}" th:href="@{'/question/'+ ${info.id} }"></a>
+                            </h4>
                             <span th:text="${info.description}"></span>
                             <br>
                             <span class="test_desc">
@@ -46,6 +48,10 @@
                         </span>
                         </div>
                     </div>
+                </div>
+
+                <div th:if="${pagination.questionDtoList == null}">
+                    <h2>当前还没有问题，赶快登录发起问题吧！！！！！</h2>
                 </div>
                 <!-- 文章列表结束 -->
             </div>

@@ -64,4 +64,31 @@ public interface UserMapper {
 
 
 
+
+
+    /**
+     * 根据账户名称查询最新的一条登录
+     * @param name github账户
+     */
+    @Select("SELECT" +
+            " id," +
+            " account_id," +
+            " name," +
+            " token," +
+            " gmt_create," +
+            " gmt_modified, " +
+            " bio, " +
+            "avatar_url " +
+            " FROM user WHERE name = #{name} " +
+            " ORDER BY gmt_modified DESC " +
+            " limit 0 , 1")
+    @ResultMap("userMap")
+    User findByName(@Param("name") String name);
+
+
+    /**
+     * 根据id更新 token 头像
+     */
+    @Update("update user set  token = #{token} , gmt_modified = #{gmtModified} , avatar_url = #{avatarUrl} where id = #{id}")
+    void updateById(User user);
 }

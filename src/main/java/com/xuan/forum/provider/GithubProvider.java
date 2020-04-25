@@ -4,19 +4,17 @@ import com.alibaba.fastjson.JSON;
 import com.xuan.forum.dto.GithubAccessTokenDto;
 import com.xuan.forum.dto.GithubUser;
 import okhttp3.*;
-import org.apache.http.*;
-import org.apache.http.client.config.RequestConfig;
-import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.DefaultHttpRequestRetryHandler;
-import org.apache.http.impl.client.HttpClients;
-import org.apache.http.protocol.HTTP;
-import org.apache.http.util.EntityUtils;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-import java.io.IOException;
-import java.net.SocketException;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @创建人： xuanxuan
@@ -25,6 +23,8 @@ import java.net.SocketException;
  */
 @Component
 public class GithubProvider {
+    private static Logger logger = LoggerFactory.getLogger(GithubProvider.class);
+
     /**
      * 获取Github回调的参数 access_token
      * @param accessTokenDto
@@ -53,33 +53,6 @@ public class GithubProvider {
             return null;
     }
 
-    /**
-     * H2Http 发送 get请求  暂时弃用 有时候会包 SocketException
-     * 根据accessToken  获取github用户的资料
-     * @param accessToken
-     * @return GithubUser 存放 git账户相关信息
-     */
-    public GithubUser getUser(String accessToken ){
-        String getUrl = "https://api.github.com/user?access_token="+accessToken;
-        System.out.println("获取github账户资料的链接为："+getUrl);
-        //使用okhttp发送get请求
-        OkHttpClient client = new OkHttpClient();
-            Request request = new Request.Builder()
-                    .url(getUrl)
-                    .build();
-
-        try (Response response = client.newCall(request).execute()){
-            //获取git官方返回的json
-            String string = response.body().string();
-            GithubUser githubUser = JSON.parseObject(string, GithubUser.class);
-            //拿到github的账户资料后再关闭 防止报文异常关闭
-            return githubUser;
-            } catch (Exception e) {
-            e.printStackTrace();
-            }finally {
-        }
-        return null;
-    }
 
     /**
      * 根据accessToken 获取GitHub的账户资料
@@ -87,32 +60,64 @@ public class GithubProvider {
      * @return
      */
     public  GithubUser getUserByAccessToken(String accessToken) {
-        String getUrl = "https://api.github.com/user?access_token="+accessToken;
-        // 获取http客户端
-        String resultStr = null;
-        CloseableHttpClient client = HttpClients.createDefault();
-        // 通过httpget方式来实现我们的get请求
-        HttpGet httpGet = new HttpGet(getUrl);
-
-        CloseableHttpResponse response= null;
-        try {
-            // 通过client调用execute方法，得到我们的执行结果就是一个response，所有的数据都封装在response里面了
-            response = client.execute(httpGet);
-            // HttpEntity
-            // 是一个中间的桥梁，在httpClient里面，是连接我们的请求与响应的一个中间桥梁，所有的请求参数都是通过HttpEntity携带过去的
-            // 所有的响应的数据，也全部都是封装在HttpEntity里面
-            HttpEntity entity = response.getEntity();
-            // 通过EntityUtils 来将我们的数据转换成字符串
-            resultStr = EntityUtils.toString(entity, "UTF-8");
-            response.close();
-        } catch (IOException e){
-            e.printStackTrace();
-        } finally {
-            httpGet.abort();
-        }
-        System.out.println("获取github账户资料的链接为："+getUrl);
+        //请求地址
+        String url = "https://api.github.com/user";
+        String resultStr = sendGet(url, "access_token=" + accessToken);
         GithubUser githubUser = JSON.parseObject(resultStr, GithubUser.class);
         return githubUser;
+    }
+
+
+
+    /**
+     * 向指定URL发送GET方法的请求
+     * @param url  发送请求的URL
+     * @param param   请求参数，格式：name1=value1&name2=value2
+     * @return String 响应结果
+     */
+    public  String sendGet(String url, String param) {
+        String result = "";
+        BufferedReader in = null;
+        try {
+            String urlNameString = url + "?" + param;
+            logger.info("github获取资料的连接是："+urlNameString);
+            URL realUrl = new URL(urlNameString);
+            // 打开和URL之间的连接
+            HttpURLConnection connection = (HttpURLConnection)realUrl.openConnection();
+            // 设置通用的请求属性
+            connection.setRequestProperty("accept", "*/*");
+            connection.setRequestProperty("connection", "Keep-Alive");
+            connection.setRequestProperty("user-agent",
+                    "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)");
+            // 建立实际的连接
+            connection.connect();
+            // 获取所有响应头字段
+            Map<String, List<String>> map = connection.getHeaderFields();
+            // 遍历所有的响应头字段
+//            for (String key : map.keySet()) {
+//                logger.info(key + "--->" + map.get(key));
+//            }
+            // 定义 BufferedReader输入流来读取URL的响应
+            in = new BufferedReader(new InputStreamReader(
+                    connection.getInputStream()));
+            String line;
+            while ((line = in.readLine()) != null) {
+                result += line;
+            }
+        } catch (Exception e) {
+            logger.error("获取github的资料时异常:"+e);
+        }
+        // 使用finally块来关闭输入流
+        finally {
+            try {
+                if (in != null) {
+                    in.close();
+                }
+            } catch (Exception e2) {
+                e2.printStackTrace();
+            }
+        }
+        return result;
     }
 
 }
