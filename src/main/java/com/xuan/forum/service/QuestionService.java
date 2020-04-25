@@ -116,4 +116,24 @@ public class QuestionService {
         questionDto.setUser(byName);
         return questionDto;
     }
+
+    /**
+     * 问题新增或修改
+     * @param question
+     */
+    public void createOrUpdate(Question question) {
+        //当前时间戳
+        long dataLong = System.currentTimeMillis();
+        if (question.getId() == null){
+            question.setGmtCreate(dataLong);
+            question.setGmtModified(dataLong);
+            //等于null  第一次发起问题 新增问题
+            questionMapper.insert(question);
+        }else {
+            question.setGmtModified(dataLong);
+
+            //id 不是空 代表问题已经存在，更新问题
+            questionMapper.update(question);
+        }
+    }
 }

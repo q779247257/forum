@@ -1,13 +1,16 @@
 package com.xuan.forum.controller;
 
+import com.xuan.forum.dto.QuestionDto;
 import com.xuan.forum.mapper.QuestionMapper;
 import com.xuan.forum.mapper.UserMapper;
 import com.xuan.forum.model.Question;
 import com.xuan.forum.model.User;
+import com.xuan.forum.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -22,10 +25,8 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 public class PublishController {
 
-
-
     @Autowired
-    private QuestionMapper questionMapper;
+    private QuestionService questionService;
     @Autowired
     private UserMapper userMapper;
 
@@ -41,6 +42,7 @@ public class PublishController {
       @RequestParam("description") String description,//文章内容
       @RequestParam("tag") String tag,//文章标签（逗号隔开）
       @RequestParam(value = "gitUser",required = false) String gitUser, //github的账户
+      @RequestParam(value = "id",required = false) Integer id, //问题id
       Model model,
       HttpServletRequest request
     ){
@@ -77,20 +79,32 @@ public class PublishController {
         }
 
         //创建发布问题插入数据库
-        long paramDateLong = System.currentTimeMillis();
         Question question = new Question();
         //设置标题
         question.setTitle(title);
         //设置描述
         question.setDescription(description);
         question.setTag(tag);//设置标签
-        question.setGmtCreate(paramDateLong);
-        question.setGmtModified(paramDateLong);
         question.setCreator(gitUser);
-        questionMapper.insert(question);
+        question.setId(id);
+        questionService.createOrUpdate(question);
         //回到首页
         return "redirect:/";
     }
 
 
+    /**
+     * 编辑问题 跳转会显页面
+     * @param id 问题 id
+     * @return 问题页面
+     */
+    @GetMapping("/publish/{id}")
+    public String edit(@PathVariable(name = "id") Integer id , Model model){
+        QuestionDto question = questionService.getById(id);
+        model.addAttribute("title",question.getTitle());
+        model.addAttribute("description",question.getDescription());
+        model.addAttribute("tag",question.getTag());
+        model.addAttribute("id",question.getId());
+        return "publish";
+    }
 }

@@ -59,4 +59,12 @@ public interface QuestionMapper {
     @Select("select * from question where id = #{id} ")
     @ResultMap("questionMap")
     Question getById(@Param("id")Integer questionId);
+
+    @Update("update question  set " +
+            "title = #{title} , " +
+            "description = #{description} , " +
+            "gmt_modified = #{gmtModified} , " +
+            "tag = #{tag} " +
+            "where id = #{id}")
+    void update(Question question);
 }
