@@ -1,6 +1,7 @@
 package com.xuan.forum.controller;
 
 import com.xuan.forum.dto.QuestionDto;
+import com.xuan.forum.model.User;
 import com.xuan.forum.service.QuestionService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,6 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * @创建人： xuanxuan
@@ -30,12 +33,14 @@ public class QuestionController {
      * @param id 文章id
      */
     @GetMapping("/question/{id}")
-    public String question(@PathVariable("id") Integer id ,
+    public String question(@PathVariable("id") Integer id , HttpServletRequest request,
                          Model model){
 
         //根据文章id查询出来
        QuestionDto questionDto = questionService.getById(id);
-       if (questionDto == null){
+       if (questionDto != null){
+
+       }else {
            logger.warn("不存在id为 ["+ id +"]的问题");
        }
        model.addAttribute("question",questionDto);

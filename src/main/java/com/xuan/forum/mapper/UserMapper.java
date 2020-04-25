@@ -85,4 +85,10 @@ public interface UserMapper {
     @ResultMap("userMap")
     User findByName(@Param("name") String name);
 
+
+    /**
+     * 根据id更新 token 头像
+     */
+    @Update("update user set  token = #{token} , gmt_modified = #{gmtModified} , avatar_url = #{avatarUrl} where id = #{id}")
+    void updateById(User user);
 }

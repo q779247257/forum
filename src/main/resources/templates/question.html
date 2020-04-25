@@ -41,10 +41,11 @@
                 <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 
                 <!-- 编辑按钮开始 -->
-                <a th:href="@{'/publish/' + ${question.id} }" style="color: #999; font-size: 13px">
-                    <span class="glyphicon glyphicon-tags" aria-hidden="true"/>编辑
-                </a>
+                    <a th:href="@{'/publish/' + ${question.id} }" style="color: #999; font-size: 18px" th:if="${session.user != null && session.user.name == question.creator}">
+                        <span class="glyphicon glyphicon-tags" aria-hidden="true"/>编辑
+                    </a>
                 <!-- 编辑按钮结束 -->
+
 
 
             </div>

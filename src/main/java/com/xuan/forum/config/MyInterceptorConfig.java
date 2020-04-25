@@ -36,6 +36,7 @@ public class MyInterceptorConfig implements WebMvcConfigurer {
                         "/hello" /* 首页 */,
                         "/callback"/* github回调地址 */,
                         "/favicon.ico",
+                        "/question/**",/** 读取文章不需要登录 */
                         "/css/**");
 
     }

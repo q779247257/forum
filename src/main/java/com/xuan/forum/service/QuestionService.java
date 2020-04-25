@@ -69,7 +69,7 @@ public class QuestionService {
 
     /**
      * 展示某个用户的问题
-     * @param userId 用户id
+     * @param userName 用户账户
      * @param page 页数
      * @param size 每页展示数量
      */
