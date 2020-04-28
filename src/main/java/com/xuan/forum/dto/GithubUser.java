@@ -8,7 +8,7 @@ import java.util.UUID;
 /**
  * @创建人： xuanxuan
  * @创建时间： 2020/4/9
- * @描述：
+ * @描述： git账户相关信息
  */
 @Data
 public class GithubUser {
