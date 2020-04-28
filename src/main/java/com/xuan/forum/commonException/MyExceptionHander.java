@@ -1,9 +1,8 @@
 package com.xuan.forum.commonException;
 
-import com.xuan.forum.controller.AuthorizeController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.expression.spel.SpelEvaluationException;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -15,12 +14,13 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class MyExceptionHander {
 
-    private static Logger logger = LoggerFactory.getLogger(AuthorizeController.class);
+    private static Logger logger = LoggerFactory.getLogger(MyExceptionHander.class);
 
 
-    @ExceptionHandler(SpelEvaluationException.class)
-    public String spelEvaluationException(SpelEvaluationException e){
-        logger.error("抛SpelEvaluationException异常，重定向首页");
-        return "redirect:/";
+    @ExceptionHandler(IllegalArgumentException.class)
+    public String spelEvaluationException(Exception e , Model model){
+        model.addAttribute("msg","您访问的文章不存在，或者已经删除!");
+        logger.error("抛"+ e +"异常，用户查询不存在的文章");
+        return "error";
     }
 }

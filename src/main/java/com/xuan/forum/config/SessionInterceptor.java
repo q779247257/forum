@@ -45,7 +45,7 @@ public class SessionInterceptor implements HandlerInterceptor {
                     //如果数据库中有token的话，代表已经登录
                     if (user != null) {
                         request.getSession().setAttribute("user", user);
-                        logger.info("拦截器通过成功，用户放入Session的信息为" + user);
+                        logger.info("拦截器通过成功，用户放入Session的信息为" + user.toString());
                         return true;
                     }
                 }

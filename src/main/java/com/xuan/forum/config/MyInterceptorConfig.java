@@ -38,7 +38,8 @@ public class MyInterceptorConfig implements WebMvcConfigurer {
                         "/favicon.ico",
                         "/question/**",/** 读取文章不需要登录 */
                         "/css/**",
-                        "/js/**" );
+                        "/js/**",
+                        "/error"/* 报错跳转放行 */);
 
     }
 }
