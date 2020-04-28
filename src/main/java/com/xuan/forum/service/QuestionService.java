@@ -129,7 +129,7 @@ public class QuestionService {
             question.setGmtCreate(dataLong);
             question.setGmtModified(dataLong);
             //等于null  第一次发起问题 新增问题
-            questionMapper.insert(question);
+            questionMapper.insertSelective(question);
         }else {
             question.setGmtModified(dataLong);
             //id 不是空 代表问题已经存在，更新问题
