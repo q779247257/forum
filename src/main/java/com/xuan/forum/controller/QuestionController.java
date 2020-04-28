@@ -41,6 +41,7 @@ public class QuestionController {
        if (questionDto != null){
            //累加阅读数+1
            questionService.incView(id);
+           questionDto.setViewCout(questionDto.getViewCout()+1);
        }else {
            logger.warn("不存在id为 ["+ id +"]的问题");
        }
