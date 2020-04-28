@@ -39,7 +39,8 @@ public class QuestionController {
         //根据文章id查询出来
        QuestionDto questionDto = questionService.getById(id);
        if (questionDto != null){
-
+           //累加阅读数+1
+           questionService.incView(id);
        }else {
            logger.warn("不存在id为 ["+ id +"]的问题");
        }

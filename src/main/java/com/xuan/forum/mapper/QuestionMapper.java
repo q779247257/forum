@@ -27,4 +27,7 @@ public interface QuestionMapper {
     Integer countByUserId(String githubUsername);
 
     List<Question> pageListByUserId(@Param("githubUsername") String githubUsername, @Param("offset") Integer offset, @Param("size") Integer size);
+
+    /** 根据文章id当前阅读数 + 1*/
+    void incView(Integer questionId);
 }

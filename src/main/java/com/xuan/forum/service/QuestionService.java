@@ -136,4 +136,12 @@ public class QuestionService {
             questionMapper.updateByPrimaryKeySelective(question);
         }
     }
+
+    /**
+     * 问题阅读数+1
+     * @param questionId 问题的id
+     */
+    public void incView(Integer questionId) {
+            questionMapper.incView(questionId);
+    }
 }
