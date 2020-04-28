@@ -68,14 +68,13 @@ CREATE TABLE `user`  (
   `avatar_url` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT 'github头像地址',
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `name_index`(`name`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 54 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 61 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 SET FOREIGN_KEY_CHECKS = 1;
 ```
 
 question表sql脚本
 ```mysql
-
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 
@@ -89,16 +88,38 @@ CREATE TABLE `question`  (
   `description` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '文章内容',
   `gmt_create` bigint(0) NULL DEFAULT NULL COMMENT '新增时间',
   `gmt_modified` bigint(0) NULL DEFAULT NULL COMMENT '更新时间',
-  `creator` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '0' COMMENT '问题创建人的github账户',
+  `creator` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '0' COMMENT '问题创建人的github账户',
   `comment_count` int(0) NULL DEFAULT 0 COMMENT '评论数',
   `view_cout` int(0) NULL DEFAULT 0 COMMENT '阅读数',
   `like_count` int(0) NULL DEFAULT 0 COMMENT '点赞数',
   `tag` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '标签',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 268 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 282 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 SET FOREIGN_KEY_CHECKS = 1;
+```
+comment（评论表SQl脚本）
+```mysql
+SET NAMES utf8mb4;
+SET FOREIGN_KEY_CHECKS = 0;
 
+-- ----------------------------
+-- Table structure for comment
+-- ----------------------------
+DROP TABLE IF EXISTS `comment`;
+CREATE TABLE `comment`  (
+  `id` int(0) NOT NULL AUTO_INCREMENT COMMENT '评论主键',
+  `parent_id` int(0) NULL DEFAULT NULL COMMENT '父类id',
+  `type` int(0) NULL DEFAULT NULL COMMENT '父类类型',
+  `commentator` int(0) NOT NULL COMMENT '评论人id',
+  `gmt_create` bigint(0) NULL DEFAULT NULL COMMENT '创建时间',
+  `gmt_modified` bigint(0) NULL DEFAULT NULL COMMENT '更新时间',
+  `like_count` int(0) NULL DEFAULT 0 COMMENT '点赞数 默认值0',
+  `content` varchar(1024) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '评论内容',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+SET FOREIGN_KEY_CHECKS = 1;
 
 ```
 [Mybatis](https://blog.mybatis.org/)

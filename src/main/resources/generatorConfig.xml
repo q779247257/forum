@@ -55,14 +55,23 @@
             domainObjectName： 生成实体类名
             tableName： 数据库表名
         -->
-        <table  tableName="user" domainObjectName="User"  enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
+
+<!--        <table  tableName="user" domainObjectName="User"  enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
                 enableSelectByExample="false" selectByExampleQueryId="false" >
-            <!--是否开启驼峰命名-->
+            &lt;!&ndash;是否开启驼峰命名&ndash;&gt;
             <property name="useActualColumnNames" value="false"/>
-            <!-- insert 返回主键 -->
+            &lt;!&ndash; insert 返回主键 &ndash;&gt;
             <generatedKey column="id" sqlStatement="MySql" identity="true"/>
         </table>
         <table  tableName="question" domainObjectName="Question"  enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
+                enableSelectByExample="false" selectByExampleQueryId="false" >
+            &lt;!&ndash;是否开启驼峰命名&ndash;&gt;
+            <property name="useActualColumnNames" value="false"/>
+            &lt;!&ndash; insert 返回主键 &ndash;&gt;
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+        </table>-->
+
+        <table  tableName="comment" domainObjectName="Comment"  enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
                 enableSelectByExample="false" selectByExampleQueryId="false" >
             <!--是否开启驼峰命名-->
             <property name="useActualColumnNames" value="false"/>
