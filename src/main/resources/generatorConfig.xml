@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <context id="Mysql_Tables" targetRuntime="MyBatis3">
+        <commentGenerator>
+            <!--去除注释-->
+            <property name="suppressAllComments" value="true"/>
+            <!--注释中去除日期注释-->
+            <property name="suppressDate" value="true"/>
+            <!--注释中添加数据库字段备注注释-->
+            <property name="addRemarkComments" value="true"/>
+        </commentGenerator>
+
+
+        <!-- 配置数据源 -->
+        <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
+                        connectionURL="jdbc:mysql://localhost:3306/forum"
+                        userId="root"
+                        password="root">
+            <property name="serverTimezone" value="GMT"/>
+            <property name="nullCatalogMeansCurrent" value="true"/>
+            <!-- MySQL8默认启用 SSL ,不关闭会有警告-->
+            <property name="useSSL" value="false"/>
+        </jdbcConnection>
+
+        <!--
+            targetPackage:包名
+            targetProject： 项目路径
+        -->
+        <javaModelGenerator targetPackage="com.xuan.forum.model" targetProject="src/main/java">
+            <!-- enableSubPackages:是否让schema作为包的后缀 -->
+            <property name="enableSubPackages" value="false"/>
+            <!-- 从数据库返回的值被清理前后的空格 -->
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+
+        <!--生成映射文件存放位置-->
+        <sqlMapGenerator targetPackage="mappers"  targetProject="src/main/resources">
+            <!-- enableSubPackages:是否让schema作为包的后缀 -->
+            <property name="enableSubPackages" value="false"/>
+            <property name="trimStrings" value="true"/>
+        </sqlMapGenerator>
+
+        <!--
+        生成Dao类接口存放位置
+        -->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.xuan.forum.mapper"  targetProject="src/main/java">
+            <!-- enableSubPackages:是否让schema作为包的后缀 -->
+            <property name="enableSubPackages" value="false"/>
+        </javaClientGenerator>
+        <!--
+            domainObjectName： 生成实体类名
+            tableName： 数据库表名
+        -->
+        <table  tableName="user" domainObjectName="User"  enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
+                enableSelectByExample="false" selectByExampleQueryId="false" >
+            <!--是否开启驼峰命名-->
+            <property name="useActualColumnNames" value="false"/>
+            <!-- insert 返回主键 -->
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+        </table>
+        <table  tableName="question" domainObjectName="Question"  enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
+                enableSelectByExample="false" selectByExampleQueryId="false" >
+            <!--是否开启驼峰命名-->
+            <property name="useActualColumnNames" value="false"/>
+            <!-- insert 返回主键 -->
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+        </table>
+    </context>
+</generatorConfiguration>

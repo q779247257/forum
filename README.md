@@ -44,6 +44,8 @@ window10 专业版
 
 [lombok](https://projectlombok.org/)
 
+[Myabtis Generator](http://mybatis.org/generator/quickstart.html)
+
 ####  Mysql数据库对应的sql脚本
 
 user表sql脚本

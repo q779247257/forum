@@ -37,7 +37,8 @@ public class MyInterceptorConfig implements WebMvcConfigurer {
                         "/callback"/* github回调地址 */,
                         "/favicon.ico",
                         "/question/**",/** 读取文章不需要登录 */
-                        "/css/**");
+                        "/css/**",
+                        "/js/**" );
 
     }
 }

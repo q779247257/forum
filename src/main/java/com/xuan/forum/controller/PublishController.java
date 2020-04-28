@@ -1,7 +1,6 @@
 package com.xuan.forum.controller;
 
 import com.xuan.forum.dto.QuestionDto;
-import com.xuan.forum.mapper.QuestionMapper;
 import com.xuan.forum.mapper.UserMapper;
 import com.xuan.forum.model.Question;
 import com.xuan.forum.model.User;

@@ -1,94 +1,21 @@
 package com.xuan.forum.mapper;
 
 import com.xuan.forum.model.User;
-import org.apache.ibatis.annotations.*;
 
-/**
- * @创建人： xuanxuan
- * @创建时间： 2020/4/9
- * @描述：
- */
 public interface UserMapper {
+    int deleteByPrimaryKey(Integer id);
 
+    int insert(User record);
 
-    /**
-     * 根据用户插入
-     * @param user
-     */
-    @Insert("insert into user " +
-            "(name,account_id,token,gmt_create,gmt_modified,bio,avatar_url)" +
-            " values " +
-            "(#{name},#{accountId},#{token},#{gmtCreate},#{gmtModified},#{bio},#{avatarUrl})")
-     void insert(User user);
+    int insertSelective(User record);
 
-    /**
-     * 根据token查询用户
-     * @param token 查询的token
-     * @return
-     */
-    @Select("SELECT" +
-            " id," +
-            " account_id," +
-            " name," +
-            " token," +
-            " gmt_create," +
-            " gmt_modified, " +
-            " bio ," +
-            " avatar_url " +
-            " FROM user WHERE token = #{token}")
-    @Results(id ="userMap" , value = {
-                    @Result(id=true,column = "id",property = "id" ),
-                    @Result(column = "name",property = "name"),
-                    @Result(column = "account_id",property = "accountId"),
-                    @Result(column = "token",property = "token"),
-                    @Result(column = "gmt_create",property = "gmtCreate"),
-                    @Result(column = "gmt_modified",property = "gmtModified"),
-                    @Result(column = "bio",property = "bio"),
-                    @Result(column = "avatar_url",property = "avatarUrl")
+    User selectByPrimaryKey(Integer id);
 
-            })
-    User findByToken(@Param("token") String token);
+    int updateByPrimaryKeySelective(User record);
 
-    @Select("SELECT" +
-            " id," +
-            " account_id," +
-            " name," +
-            " token," +
-            " gmt_create," +
-            " gmt_modified, " +
-            " bio, " +
-            "avatar_url " +
-            " FROM user WHERE id = #{id}")
-    @ResultMap("userMap")
-    User findById(@Param("id")Integer id);
+    int updateByPrimaryKey(User record);
 
+    User findByToken(String token);
 
-
-
-
-    /**
-     * 根据账户名称查询最新的一条登录
-     * @param name github账户
-     */
-    @Select("SELECT" +
-            " id," +
-            " account_id," +
-            " name," +
-            " token," +
-            " gmt_create," +
-            " gmt_modified, " +
-            " bio, " +
-            "avatar_url " +
-            " FROM user WHERE name = #{name} " +
-            " ORDER BY gmt_modified DESC " +
-            " limit 0 , 1")
-    @ResultMap("userMap")
-    User findByName(@Param("name") String name);
-
-
-    /**
-     * 根据id更新 token 头像
-     */
-    @Update("update user set  token = #{token} , gmt_modified = #{gmtModified} , avatar_url = #{avatarUrl} where id = #{id}")
-    void updateById(User user);
+    User findByName(String name);
 }

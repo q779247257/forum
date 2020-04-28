@@ -44,6 +44,7 @@ public class QuestionService {
         Integer offset = size * (paginationDto.getPage() - 1);
         //查询分页所展示的数据
         List<Question> questionList = questionMapper.pageList(offset,size);
+
         List<QuestionDto> questionDtoLit = new ArrayList<>();
         for (Question question : questionList){
             //根据github账户查询用户
@@ -107,7 +108,7 @@ public class QuestionService {
      * @param id 问题id
      */
     public QuestionDto getById(Integer id) {
-       Question question =  questionMapper.getById(id);
+       Question question =  questionMapper.selectByPrimaryKey(id);
 
         QuestionDto questionDto = new QuestionDto();
         BeanUtils.copyProperties(question,questionDto);
@@ -131,9 +132,8 @@ public class QuestionService {
             questionMapper.insert(question);
         }else {
             question.setGmtModified(dataLong);
-
             //id 不是空 代表问题已经存在，更新问题
-            questionMapper.update(question);
+            questionMapper.updateByPrimaryKeySelective(question);
         }
     }
 }
