@@ -33,4 +33,5 @@ public interface QuestionMapper {
 
     /** 根据文章id当前评论数 + 1*/
     void incComment(Integer questionId);
+
 }

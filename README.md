@@ -2,7 +2,7 @@
 PCF社区是一个95后的新手码农搭建的基于Github账号的IT技术交流平台，全称 (Programmer Communication forum)。
 旨为打造更好的技术交流平台,相互学习，相互进步.
 
-![查看我的问题](https://img-blog.csdnimg.cn/20200423160033858.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxNzc5MjQ3MjU3,size_16,color_FFFFFF,t_70)
+![首页](https://img-blog.csdnimg.cn/20200429144734299.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxNzc5MjQ3MjU3,size_16,color_FFFFFF,t_70)
 
 
 ## 资料
