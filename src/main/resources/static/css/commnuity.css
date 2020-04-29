@@ -31,4 +31,16 @@ body {
     margin-top: 15px;
 }
 
+.media-body_xuan{
+    margin: 15px 0px;
+    padding-top: 10px;
+}
+
+/* 评论提交按钮 */
+.btn-success {
+    float: right;
+    margin-bottom: 15px;
+    margin-top: 10px;
+}
+
 
