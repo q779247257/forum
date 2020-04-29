@@ -13,6 +13,6 @@ public class CommentDto {
     private Integer parentId;
     /** 评论内容 */
     private String content;
-    /** 类型 */
+    /** 评论父类id类型 */
     private Integer type;
 }

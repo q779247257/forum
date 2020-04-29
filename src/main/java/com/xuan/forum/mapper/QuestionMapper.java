@@ -30,4 +30,7 @@ public interface QuestionMapper {
 
     /** 根据文章id当前阅读数 + 1*/
     void incView(Integer questionId);
+
+    /** 根据文章id当前评论数 + 1*/
+    void incComment(Integer questionId);
 }

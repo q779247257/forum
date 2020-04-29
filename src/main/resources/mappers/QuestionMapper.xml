@@ -184,6 +184,13 @@
         where id = #{id,jdbcType=INTEGER}
   </update>
 
+    <update id="incComment" parameterType="java.lang.Integer">
+        UPDATE question
+        SET comment_count =  comment_count  + 1
+        where id = #{questionId,jdbcType=INTEGER}
+  </update>
+
+
     <update id="updateByPrimaryKey" parameterType="com.xuan.forum.model.Question">
     update question
     set title = #{title,jdbcType=VARCHAR},
