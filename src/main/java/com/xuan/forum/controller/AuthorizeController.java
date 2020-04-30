@@ -82,6 +82,7 @@ public class AuthorizeController {
             return "redirect:/";
         }
     }
+    //退出登录
     @GetMapping("/logout")
     public String logout(HttpServletRequest request , HttpServletResponse response){
         request.getSession().removeAttribute("user");

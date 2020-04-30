@@ -10,7 +10,7 @@ import lombok.Getter;
 @Getter
 public enum  ResultEnum {
     /** 未登录请求评论 */
-    NO_LOGIN(2002,"没有登录不可以进行评论"),
+    NO_LOGIN(2002,"没有登录不可以进行评论,是否要进行登录"),
     /** 评论时 父级id为null */
     NO_SELECT_QUESTION_OR_COMMENT(2001,"没有选择问题或评论进行评论"),
     /** 评论类型错误 */
