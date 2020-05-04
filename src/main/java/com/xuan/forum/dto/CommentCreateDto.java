@@ -4,6 +4,8 @@ package com.xuan.forum.dto;
 import com.xuan.forum.model.User;
 import lombok.Data;
 
+import java.util.List;
+
 /**
  * @Author: 轩轩
  * @Date: 2020/5/4 16:12
@@ -36,5 +38,7 @@ public class CommentCreateDto {
     private String content;
 
     private User user;
+
+    private List<CommentCreateDto> commentCreateDtos;
 
 }
