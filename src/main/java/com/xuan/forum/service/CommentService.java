@@ -1,19 +1,26 @@
 package com.xuan.forum.service;
 
 import com.xuan.forum.commonException.MyCustomException;
-import com.xuan.forum.commonException.MyExceptionHander;
-import com.xuan.forum.dto.ResultDto;
+import com.xuan.forum.dto.CommentCreateDto;
 import com.xuan.forum.enums.CommentTypeEnum;
 import com.xuan.forum.enums.ResultEnum;
 import com.xuan.forum.mapper.CommentMapper;
 import com.xuan.forum.mapper.QuestionMapper;
+import com.xuan.forum.mapper.UserMapper;
 import com.xuan.forum.model.Comment;
 import com.xuan.forum.model.Question;
+import com.xuan.forum.model.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * @创建人： xuanxuan
@@ -29,6 +36,8 @@ public class CommentService {
     private CommentMapper commentMapper;
     @Autowired
     private QuestionMapper questionMapper;
+    @Autowired
+    private UserMapper userMapper;
 
     /**
      * 增加评论
@@ -59,5 +68,33 @@ public class CommentService {
             //评论数加1
             questionMapper.incComment(comment.getParentId());
         }
+    }
+
+    /**
+     * 获取指定文章的评论
+     * @param questionId 文章id
+     */
+    public List<CommentCreateDto> listByQuestionId(Integer questionId) {
+        //查询一级评论
+        List<Comment> commentList = commentMapper.findByQestionIdOrType(questionId,CommentTypeEnum.QUESTION.getType());
+
+        //校验是否有评论
+        if (commentList.isEmpty()) return new ArrayList<>();
+
+        //创建返回的数据类
+        List<CommentCreateDto> commentCreateDtos = new ArrayList<>();
+
+        // todo 设置 comment数据
+        commentList.stream().forEach(item -> {
+            CommentCreateDto commentCreateDto = new CommentCreateDto();
+            BeanUtils.copyProperties(item,commentCreateDto);
+            commentCreateDtos.add(commentCreateDto);
+        });
+        //todo 设置 User数据
+        commentCreateDtos.stream().forEach(item -> {
+            User user = userMapper.selectByPrimaryKey(item.getCommentator());
+            item.setUser(user);
+        });
+        return commentCreateDtos;
     }
 }

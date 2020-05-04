@@ -20,7 +20,18 @@
     from comment
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+
+    <select id="findByQestionIdOrType" resultMap="BaseResultMap">
+      select
+      <include refid="Base_Column_List" />
+      from comment
+      <if test="type != null">
+        where  parent_id = #{questionId}
+        and type = #{type}
+      </if>
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from comment
     where id = #{id,jdbcType=INTEGER}
   </delete>

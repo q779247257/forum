@@ -56,7 +56,7 @@ public class CommentController {
         comment.setType(commentDto.getType());//设置类型
         comment.setGmtCreate(System.currentTimeMillis());
         comment.setGmtModified(comment.getGmtCreate());
-        comment.setCommentator(1);//评论人的id
+        comment.setCommentator(user.getId());//评论人的id
         comment.setLikeCount(0);//点赞数
         commentService.insert(comment);
         return ResultDto.okOF();

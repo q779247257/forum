@@ -1,7 +1,10 @@
 package com.xuan.forum.controller;
 
+import com.xuan.forum.dto.CommentCreateDto;
+import com.xuan.forum.dto.CommentDto;
 import com.xuan.forum.dto.QuestionDto;
 import com.xuan.forum.model.User;
+import com.xuan.forum.service.CommentService;
 import com.xuan.forum.service.QuestionService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * @创建人： xuanxuan
@@ -28,6 +32,9 @@ public class QuestionController {
     @Autowired
     private QuestionService questionService;
 
+    @Autowired
+    private CommentService commentService;
+
     /**
      * 查看文章
      * @param id 文章id
@@ -39,6 +46,9 @@ public class QuestionController {
         //根据文章id查询出来
        QuestionDto questionDto = questionService.getById(id);
        if (questionDto != null){
+           List<CommentCreateDto> commentList = commentService.listByQuestionId(id);
+           logger.info("评论的列表为:"+commentList);
+           model.addAttribute("commentList",commentList);
            //累加阅读数+1
            questionService.incView(id);
            questionDto.setViewCout(questionDto.getViewCout()+1);
@@ -46,6 +56,7 @@ public class QuestionController {
            logger.warn("不存在id为 ["+ id +"]的问题");
        }
        model.addAttribute("question",questionDto);
+
        return "question";
     }
 
