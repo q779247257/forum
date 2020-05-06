@@ -19,6 +19,8 @@ public enum  ResultEnum {
     PARENT_COMMENT_NULL(2004,"你评论的评论不存在或已删除"),
     /** 评论的问题不存在 */
     PARENT_QUESTION_NULL(2005,"你评论的问题不存在或已删除"),
+    /** 输入问题不能为null */
+    VALUE_NOT_CAN_NULL(2006,"输入内容不能为空"),
 
     ;
 

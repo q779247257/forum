@@ -73,5 +73,10 @@ body {
     color: #499ef3;
 }
 
+/* 评论内容修饰 */
+.comment_value {
+    margin-left: 59px
+}
+
 
 

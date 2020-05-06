@@ -29,6 +29,7 @@
         where  parent_id = #{questionId}
         and type = #{type}
       </if>
+      ORDER BY gmt_create DESC
     </select>
 
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">

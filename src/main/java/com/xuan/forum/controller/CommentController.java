@@ -8,6 +8,7 @@ import com.xuan.forum.model.User;
 import com.xuan.forum.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -47,6 +48,9 @@ public class CommentController {
         //评论类型 判断
         if (commentDto.getType() == null || (commentDto.getType() != 1 && commentDto.getType() != 2) ){
             return ResultDto.errorOf(ResultEnum.COMMENT_TYPE_ERROR);
+        }
+        if (commentDto.getContent() == null || StringUtils.isEmpty(commentDto.getContent())){
+            return ResultDto.errorOf(ResultEnum.VALUE_NOT_CAN_NULL);
         }
 
 

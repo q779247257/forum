@@ -6,9 +6,14 @@ function post() {
     var questionId = $("#question_id").val();
     //获取评论内容
     var content = $("#comment_content").val();
+    if (!content) {
+        alert("不能回复空内容");
+        return;
+    }else {
+
+    }
     console.log('文章id：'+questionId);
     console.log('评论内容：'+content);
-
     $.ajax({
         contentType:'application/json',
         url: "/comment/increase",
@@ -22,7 +27,8 @@ function post() {
         success: function(response) {
             if (response.code == 200){
                 //请求成功 清空评论框框
-                $("#comment_section").hide();
+                // $("#comment_section").hide();
+                window.location.reload();
             }else {
                 //2002 没有登录
                 if (response.code == 2002){

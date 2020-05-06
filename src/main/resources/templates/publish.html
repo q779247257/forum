@@ -40,7 +40,7 @@
                     <!--                添加标签-->
                     <div class="form-group">
                         <label for="title">添加标签：</label>
-                        <input type="text" class="form-control" th:value="tag"   id="tag" name="tag" placeholder="输入标签，以，（逗号）分隔开" />
+                        <input type="text" class="form-control"   id="tag" name="tag" placeholder="输入标签，以，（逗号）分隔开" />
 
                         <div th:if="${session.user != null}">
                             <input  type="hidden"  th:value="${session.user.getName()}" class="form-control" name="gitUser" />
