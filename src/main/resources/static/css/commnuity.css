@@ -45,9 +45,9 @@ body {
 
 /* 评论DIV class修饰 */
 .comment_list_value {
-    margin-left: 75px;
+    margin-left: 65px;
     color: #999999;
-    margin-top: 25px;
+    margin-top: 10px;
 }
 
 /* 评论区名字修饰 */
@@ -72,6 +72,7 @@ body {
 .comment_like:hover {
     color: #499ef3;
 }
+
 
 /* 评论内容修饰 */
 .comment_value {

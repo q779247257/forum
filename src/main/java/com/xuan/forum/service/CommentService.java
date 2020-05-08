@@ -20,7 +20,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  * @创建人： xuanxuan
@@ -46,7 +45,6 @@ public class CommentService {
     public void insert(Comment comment) {
         if (comment.getType() == CommentTypeEnum.COMMENT.getType()){
             //todo 回复评论 id 2
-
             //获取父评论
             Comment parentComment = commentMapper.selectByPrimaryKey(comment.getParentId());
             //父评论 判断
@@ -77,6 +75,30 @@ public class CommentService {
     public List<CommentCreateDto> listByQuestionId(Integer questionId) {
         //查询一级评论
         List<Comment> commentList = commentMapper.findByQestionIdOrType(questionId,CommentTypeEnum.QUESTION.getType());
+
+        //校验是否有评论
+        if (commentList.isEmpty()) return new ArrayList<>();
+
+        //创建返回的数据类
+        List<CommentCreateDto> commentCreateDtos = new ArrayList<>();
+
+        // todo 设置 comment数据
+        commentList.stream().forEach(item -> {
+            CommentCreateDto commentCreateDto = new CommentCreateDto();
+            BeanUtils.copyProperties(item,commentCreateDto);
+            commentCreateDtos.add(commentCreateDto);
+        });
+        //todo 设置 User数据
+        commentCreateDtos.stream().forEach(item -> {
+            User user = userMapper.selectByPrimaryKey(item.getCommentator());
+            item.setUser(user);
+        });
+        return commentCreateDtos;
+    }
+
+    public List<CommentCreateDto> listByCommentId(Integer commentId) {
+        //查询一级评论
+        List<Comment> commentList = commentMapper.findByQestionIdOrType(commentId,CommentTypeEnum.COMMENT.getType());
 
         //校验是否有评论
         if (commentList.isEmpty()) return new ArrayList<>();

@@ -1,5 +1,6 @@
 package com.xuan.forum.controller;
 
+import com.xuan.forum.dto.CommentCreateDto;
 import com.xuan.forum.dto.CommentDto;
 import com.xuan.forum.dto.ResultDto;
 import com.xuan.forum.enums.ResultEnum;
@@ -9,12 +10,10 @@ import com.xuan.forum.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * @创建人： xuanxuan
@@ -49,10 +48,10 @@ public class CommentController {
         if (commentDto.getType() == null || (commentDto.getType() != 1 && commentDto.getType() != 2) ){
             return ResultDto.errorOf(ResultEnum.COMMENT_TYPE_ERROR);
         }
+        //输入内容不能为空
         if (commentDto.getContent() == null || StringUtils.isEmpty(commentDto.getContent())){
             return ResultDto.errorOf(ResultEnum.VALUE_NOT_CAN_NULL);
         }
-
 
         Comment comment = new Comment();
         comment.setParentId(commentDto.getParentId());//设置父类id
@@ -64,5 +63,16 @@ public class CommentController {
         comment.setLikeCount(0);//点赞数
         commentService.insert(comment);
         return ResultDto.okOF();
+    }
+
+    /**
+     * 获取子评论
+     * @param commentId
+     */
+    @ResponseBody
+    @RequestMapping(value = "/comment/{id}", method = RequestMethod.GET)
+    public ResultDto<List<CommentCreateDto>> comments(@PathVariable("id") Integer commentId){
+        List<CommentCreateDto> commentCreateDtos = commentService.listByCommentId(commentId);
+        return ResultDto.okOF(commentCreateDtos);
     }
 }

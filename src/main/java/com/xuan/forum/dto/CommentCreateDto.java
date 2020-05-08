@@ -39,6 +39,4 @@ public class CommentCreateDto {
 
     private User user;
 
-    private List<CommentCreateDto> commentCreateDtos;
-
 }
