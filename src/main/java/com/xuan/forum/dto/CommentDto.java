@@ -1,6 +1,5 @@
 package com.xuan.forum.dto;
 
-import com.xuan.forum.model.User;
 import lombok.Data;
 
 /**

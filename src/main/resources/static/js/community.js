@@ -15,9 +15,9 @@ function post() {
 
 /* 二级评论按钮 点击改变颜色 */
 function change_view_color(e) {
-    var data = e.getAttribute("data-id");
+    var id = e.getAttribute("data-id");
     //获取元素
-    var $1 = $("#"+data);
+    var $1 = $("#"+id);
     //获取子评论是否展开
     var isOpen = e.getAttribute("aria-expanded");
     console.log(isOpen)
@@ -25,12 +25,41 @@ function change_view_color(e) {
         //恢复颜色
         $1.css("color","");
     } else {
-        $.getJSON("/comment/comment/"+data , function (data) {
-            console.log(data);
-        })
-
         //改变颜色
         $1.css("color","#499ef3");
+        //请求获取二级评论
+        $.getJSON("/comment/comment/"+id , function (data) {
+            console.log(data);
+            //获取循环的二级评论元素
+            var commentBody = $("#comment-body-"+id);
+            var items = [];
+
+            //遍历二级评论列表
+            $.each(data.data, function(comment ) {
+               var c =  $("<div>",{
+                   "class" : "col-lg-12 col-md-12 col-sm-12 col-xs-12",
+                   "id" : "id"+id,
+                   html: comment.content
+               });
+
+               items.push( c );
+            });
+
+            //创建div标签
+           var newDiv =  $("<div>",{
+                "class" : "col-lg-12 col-md-12 col-sm-12 col-xs-12",
+                "id" : "id"+id,
+                html: items.join( "" )
+            }).appendTo(commentBody);
+
+           //追加元素
+           commentBody.append(newDiv);
+
+        });
+
+
+
+
     }
 
 

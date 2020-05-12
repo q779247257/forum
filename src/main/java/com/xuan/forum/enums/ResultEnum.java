@@ -23,10 +23,17 @@ public enum  ResultEnum {
     VALUE_NOT_CAN_NULL(2006,"输入内容不能为空");
     ;
 
+    /** 状态码 */
     private Integer code;
+    /** 状态内容 */
     private String meeage;
 
+    /**
+     * @param code 状态码
+     * @param meeage 状态内容
+     */
     ResultEnum(Integer code, String meeage) {
+        
         this.code = code;
         this.meeage = meeage;
     }
