@@ -123,6 +123,12 @@ function comment2target(targetId , type , comment) {
  * 提交子评论
  */
 function comment(e) {
+
+    var isLogin = $("#login-"+commentId);
+    if(isLogin == null || isLogin == "undefined"){
+        alert("请登录之后再评论")
+        return;
+    }
     //获取id
     var commentId = e.getAttribute("data-id");
     console.log(commentId);

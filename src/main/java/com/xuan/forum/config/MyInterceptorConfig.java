@@ -40,7 +40,7 @@ public class MyInterceptorConfig implements WebMvcConfigurer {
                         "/css/**",
                         "/js/**",
                         "/error",/* 报错跳转放行 */
-//                        "/comment/**",/*评论类*/
+                        "/comment/comment/**",/*二级评论查询类*/
                         "/fonts/**" /*字体类*/
                 );
 
