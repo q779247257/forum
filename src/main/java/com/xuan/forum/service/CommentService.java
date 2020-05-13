@@ -69,7 +69,7 @@ public class CommentService {
     }
 
     /**
-     * 获取指定文章的评论
+     * 获取指定文章的一级评论
      * @param questionId 文章id
      */
     public List<CommentCreateDto> listByQuestionId(Integer questionId) {
@@ -91,7 +91,10 @@ public class CommentService {
         //todo 设置 User数据
         commentCreateDtos.stream().forEach(item -> {
             User user = userMapper.selectByPrimaryKey(item.getCommentator());
+            //查询出子评论的数量
+            Integer commentCount = commentMapper.subCommentCount(item.getId(),CommentTypeEnum.COMMENT.getType());
             item.setUser(user);
+            if (commentCount != null)item.setCommentCount(commentCount);
         });
         return commentCreateDtos;
     }

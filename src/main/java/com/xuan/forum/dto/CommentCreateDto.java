@@ -37,6 +37,9 @@ public class CommentCreateDto {
     /** 评论内容  */
     private String content;
 
+    /** 子评论数量 */
+    private int commentCount;
+
     private User user;
 
 }

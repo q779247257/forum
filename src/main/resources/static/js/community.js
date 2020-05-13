@@ -24,45 +24,52 @@ function change_view_color(e) {
     if (isOpen == "true"){
         //恢复颜色
         $1.css("color","");
+        //获取清空的元素
+        var commentBody = $("#id" + id);
+        //删除选定元素中的  div标签
+        commentBody.find("div").remove();
     } else {
-        //改变颜色
+        //改变颜色 评论展开
         $1.css("color","#499ef3");
         //请求获取二级评论
         $.getJSON("/comment/comment/"+id , function (data) {
             console.log(data);
-            //获取循环的二级评论元素
-            var commentBody = $("#comment-body-"+id);
-            var items = [];
-
+            //获取需要追加的元素
+            var commentBody = $("#comment-hr-id" + id);
             //遍历二级评论列表
-            $.each(data.data, function(comment ) {
-               var c =  $("<div>",{
-                   "class" : "col-lg-12 col-md-12 col-sm-12 col-xs-12",
-                   "id" : "id"+id,
-                   html: comment.content
-               });
-
-               items.push( c );
+            $.each(data.data, function(index,value) {
+                console.log("二级评论列表循环开始");
+                console.log(value);
+                console.log("追加的元素id为:");
+                console.log(commentBody.attr("id"));
+                //在此元素之前追加元素
+                commentBody.before("\n" +
+                    "                             <div class=\"col-lg-12 col-md-12 col-sm-12 col-xs-12\" >\n" +
+                    "                                <div class=\"media-left media-middle\">\n" +
+                    "                                    <a href=\"#\">\n" +
+                    "                                        <img class=\"media-object img-rounded\" style=\"width: 40px\"\n" +
+                    "                                             src=\" " + value.user.avatarUrl +" \" alt=\"...\"/>\n" +
+                    "                                    </a>\n" +
+                    "                                </div>\n" +
+                    "\n" +
+                    "                                <div class=\"media-body\" style=\"margin: 10px 0px; padding: 10px\">\n" +
+                    "                                    <h4 class=\"media-heading\" >\n" +
+                    "                                        <span class=\"comment_name\" >" + value.user.name + "</span>\n" +
+                    "                                    </h4>\n" +
+                    "                                    <span class=\"comment_name\" > " +value.user.bio+ "</span>\n" +
+                    "                                    <br>\n" +
+                    "                                </div>\n" +
+                    "                                <!-- 评论内容 -->\n" +
+                    "                                <div class=\"comment_value\" style=\"color: #333333\"> "+ value.content + "</div>\n" +
+                    "                                <div class=\"comment_list_value\" >\n" +
+                    "                                    <span class=\"pull-right\"\n" +
+                    "                                          >"+timestampToTime(value.gmtCreate)+"</span>\n" +
+                    "                                </div>\n" +
+                    "                            " +
+                    "</div>");
             });
-
-            //创建div标签
-           var newDiv =  $("<div>",{
-                "class" : "col-lg-12 col-md-12 col-sm-12 col-xs-12",
-                "id" : "id"+id,
-                html: items.join( "" )
-            }).appendTo(commentBody);
-
-           //追加元素
-           commentBody.append(newDiv);
-
         });
-
-
-
-
     }
-
-
 }
 
 
@@ -123,4 +130,20 @@ function comment(e) {
     var commentValue = $("#input"+commentId).val();
     console.log(commentValue)
     comment2target(commentId,2,commentValue);
+}
+
+/**
+ * 时间戳转日期
+ * @param timestamp
+ * @returns {*}
+ */
+function timestampToTime(timestamp) {
+    var date = new Date(timestamp);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
+    Y = date.getFullYear() + '-';
+    M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+    D = date.getDate() + ' ';
+    h = date.getHours() + ':';
+    m = (date.getMinutes() < 10 ? '0'+(date.getMinutes()) : date.getMinutes()) + ':';
+    s = (date.getSeconds() < 10 ? '0'+(date.getSeconds()) : date.getSeconds());
+    return Y+M+D+h+m+s;
 }

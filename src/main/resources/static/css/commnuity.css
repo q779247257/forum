@@ -80,4 +80,10 @@ body {
 }
 
 
+/* 子评论数量修饰 */
+.comment_count {
+    margin-left: -10px;
+}
+
+
 

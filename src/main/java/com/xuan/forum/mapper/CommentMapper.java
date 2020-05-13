@@ -25,4 +25,12 @@ public interface CommentMapper {
      * @return
      */
     List<Comment> findByQestionIdOrType(@Param("questionId") Integer questionId, @Param("type")Integer type);
+
+    /**
+     * 根据父id 和类型查询评论数量
+     * @param parentId 父id
+     * @param type 类型
+     * @return
+     */
+    Integer subCommentCount(@Param("parentId")Integer parentId, @Param("type")Integer type);
 }
