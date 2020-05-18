@@ -36,7 +36,7 @@ public class UserService {
             dbUser.setToken(user.getToken());
            //存在，做更新操作
            userMapper.updateByPrimaryKeySelective(dbUser);
-           logger.info("用户登录成更新token："+dbUser.getToken());
+           logger.info("用户登录成功更新token："+dbUser.getToken());
            return dbUser;
        }
 
