@@ -38,8 +38,9 @@ public class QuestionDto {
     private Integer viewCout;
     /**点赞数*/
     private Integer likeCount;
-    /**tag*/
+    /**标签*/
     private String tag;
+    /** 文章作者信息 */
     private User user;
 
 

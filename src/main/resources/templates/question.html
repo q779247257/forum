@@ -40,12 +40,22 @@
                 </div>
                 <!-- 问题描述结束 -->
                 <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <!-- 标签 -->
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+<!--                    <span class="label label-info" th:text="${question.tag}">Info</span>-->
 
+                    <span class="label label-info tag_span" th:each="tag,tagStat :${question.tag.split(',')}">
+                        <span class="glyphicon glyphicon-tags"></span>
+                            <span class="label label-info" th:text="${tag}"></span>
+                    </span>
+                </div>
+                <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <!-- 编辑按钮开始 -->
                     <a th:href="@{'/publish/' + ${question.id} }" style="color: #999; font-size: 18px" th:if="${session.user != null && session.user.name == question.creator}">
                         <span class="glyphicon glyphicon-tags" aria-hidden="true"/>编辑
                     </a>
                 <!-- 编辑按钮结束 -->
+
                 <!-- 回复数量 -->
                 <h4 th:text="${question.commentCount + '个回复'}"></h4>
                 <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 0px">
