@@ -1,5 +1,6 @@
 package com.xuan.forum.service;
 
+import com.sun.org.apache.bcel.internal.generic.IF_ACMPEQ;
 import com.xuan.forum.dto.PaginationDto;
 import com.xuan.forum.dto.QuestionDto;
 import com.xuan.forum.mapper.QuestionMapper;
@@ -9,9 +10,11 @@ import com.xuan.forum.model.User;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @创建人： xuanxuan
@@ -143,5 +146,28 @@ public class QuestionService {
      */
     public void incView(Integer questionId) {
             questionMapper.incView(questionId);
+    }
+
+    /**
+     * 根据标签查询相关问题
+     */
+    public List<QuestionDto> selectRelated(QuestionDto questionDto) {
+        //如果标签是空的 返回一个空的list
+        if (StringUtils.isEmpty(questionDto.getTag()))return new ArrayList<>();
+        //字符串 逗号替换为 |
+        String replace = StringUtils.replace(questionDto.getTag(), ",", "|").replace("，","|");
+        Question question = new Question();
+        question.setTag(replace);
+        question.setId(questionDto.getId());
+        //查询出相关问题\文章
+        List<Question> questions = questionMapper.selectRelated(question);
+
+        //转换为dto
+        List<QuestionDto> questionDtos = questions.stream().map(q -> {
+            QuestionDto resultDto = new QuestionDto();
+            BeanUtils.copyProperties(q, resultDto);
+            return resultDto;
+        }).collect(Collectors.toList());
+        return questionDtos;
     }
 }

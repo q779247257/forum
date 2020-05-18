@@ -72,7 +72,7 @@ public class CommentService {
      * 获取指定文章的一级评论
      * @param questionId 文章id
      */
-    public List<CommentCreateDto> listByQuestionId(Integer questionId) {
+    public List<CommentCreateDto>   listByQuestionId(Integer questionId) {
         //查询一级评论
         List<Comment> commentList = commentMapper.findByQestionIdOrType(questionId,CommentTypeEnum.QUESTION.getType());
 

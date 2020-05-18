@@ -203,4 +203,10 @@
       tag = #{tag,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+    <select id="selectRelated" parameterType="com.xuan.forum.model.Question" resultMap="ResultMapWithBLOBs">
+    SELECT * FROM question
+    where id != #{id} and tag regexp #{tag}
+    ORDER BY gmt_modified DESC
+  </select>
 </mapper>

@@ -145,7 +145,7 @@
                     <!-- 评论框下方提交按钮 -->
 
                     <button th:if="${session.user != null }" type="button" class="btn btn-success" onclick="post()">回复</button>
-                    <button th:if="${session.user == null }" type="button" disabled="disabled" class="btn btn-success" onclick="post()">回复</button>
+                    <button th:if="${session.user == null }" type="button" disabled="disabled" class="btn btn-success" >回复</button>
                 </div>
                 <!--  左侧评论框框结束 -->
 
@@ -178,9 +178,24 @@
                 </div>
                 <!-- 发起人结束 -->
                 <hr class=" col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+                <!--推荐内容 开始-->
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 15px">
+                    <h3>推荐内容</h3>
+                    <img class="img-thumbnail" src="/img/recommend.jpg">
+                </div>
+                <!--推荐内容 结束-->
+
+
+                <hr class=" col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <!-- 相关问题开始 -->
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 15px">
                     <h3>相关问题</h3>
+                    <ul class="list-group">
+                        <li  th:each="reated,infoStat :${reatedQuestion}" >
+                            <a th:href="@{'/question/'+${reated.id}}" th:text="${reated.title}"></a>
+                        </li>
+                    </ul>
                 </div>
                 <!-- 相关问题结束 -->
             </div>

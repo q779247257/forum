@@ -46,6 +46,10 @@ public class QuestionController {
         //根据文章id查询出来
        QuestionDto questionDto = questionService.getById(id);
        if (questionDto != null){
+           //获取文章的相关问题
+           List<QuestionDto> reatedQuestion = questionService.selectRelated(questionDto);
+           model.addAttribute("reatedQuestion",reatedQuestion);
+           //获取文章的评论列表
            List<CommentCreateDto> commentList = commentService.listByQuestionId(id);
            logger.info("评论的列表为:"+commentList);
            model.addAttribute("commentList",commentList);

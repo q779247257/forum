@@ -91,4 +91,27 @@ body {
 }
 
 
+/* 相关问题修饰 */
+.list-group {
+    list-style: none;
+    font-size: 14px;
+    font-family: candara,"Helvetica Neue",Helvetica,Arial,"PingFang SC","Hiragino Sans GB","WenQuanYi Micro Hei","Microsoft Yahei",sans-serif, -apple-system;
+    cursor: pointer;
+    color: #155faa;
+    background: 0 0;
+    box-sizing: border-box;
+    text-align: -webkit-match-parent;
+    line-height: 160%;
+}
+
+.list-group li {
+    margin-top: 10px;
+}
+
+/** 推荐内容 图片修饰 */
+.recommend_img {
+    width: 100%;
+}
+
+
 
