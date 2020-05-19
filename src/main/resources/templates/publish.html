@@ -22,7 +22,7 @@
 <nav class="navbar navbar-default">
     <div class="container-fluid" id="left_main">
         <div class="row">
-            <div class="col-lg-9 .col-md-12 .col-sm-12 .col-xs-12">
+            <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
                 <h3><span aria-hidden="true" class="glyphicon glyphicon-plus"></span>发起</h3>
                 <hr>
                 <form action="/publish" method="post">
@@ -42,7 +42,7 @@
                     <!--                添加标签-->
                     <div class="form-group">
                         <label for="title">添加标签：</label>
-                        <input autocomplete="off" class="form-control" id="tag" onclick="showSelectTag()" name="tag"
+                        <input autocomplete="off" th:value="${tag}" class="form-control" id="tag" onclick="showSelectTag()" name="tag"
                                placeholder="输入标签，以，（逗号）分隔开" type="text"/>
                         <!-- 选择标签开始 -->
                         <div id="select-tag">
@@ -75,13 +75,15 @@
                                    type="hidden"/>
                         </div>
                     </div>
+
+                    <button class="btn btn-success btn-publish" type="submit">提交</button>
                     <div th:if="${error != null}">
                         <span class="alert alert-danger" th:text="${error}"></span>
                     </div>
-                    <button class="btn btn-success btn-publish" type="submit">提交</button>
                 </form>
 
             </div>
+
             <div class="col-lg-3 .col-md-12 .col-sm-12 .col-xs-12">
                 <h3>问题发起指南</h3>
                 <dl>

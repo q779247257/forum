@@ -54,6 +54,8 @@ public class PublishController {
         model.addAttribute("title",title);
         model.addAttribute("description",description);
         model.addAttribute("tag",tag);
+        //加载自定义标签
+        model.addAttribute("tags",TagCahe.getTag());
         //校验参数
         if (gitUser == null){
             model.addAttribute("error","用户未登录");
@@ -73,6 +75,11 @@ public class PublishController {
             return "publish";
         }
 
+        //校验标签是否非法
+        if (TagCahe.tagIsValid(tag)){
+            model.addAttribute("error","含有非法的标签，请选择指定标签");
+            return "publish";
+        }
 
 
         //获取全部cookie
@@ -110,6 +117,7 @@ public class PublishController {
         model.addAttribute("description",question.getDescription());
         model.addAttribute("tag",question.getTag());
         model.addAttribute("id",question.getId());
+
 
 
         return "publish";

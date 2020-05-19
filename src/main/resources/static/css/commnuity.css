@@ -73,7 +73,10 @@ body {
     color: #499ef3;
 }
 
-
+/* 标签修饰 */
+.tab-content {
+    margin-top: 10px;
+}
 /* 评论内容修饰 */
 .comment_value {
     margin-left: 59px

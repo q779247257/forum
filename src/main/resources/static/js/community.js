@@ -166,7 +166,8 @@ function selectTag(value) {
  * 标签 input 框框获取焦点 修改 标签栏的css
  */
 function showSelectTag() {
-    $("#select-tag").show();
+    //标签展示
+    $("#select-tag").css("display","block");
 }
 
 
