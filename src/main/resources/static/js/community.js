@@ -110,7 +110,6 @@ function comment2target(targetId , type , comment) {
                     }
                 }else {
                     alert(response.message);
-
                 }
             }
             console.log(response);
@@ -137,6 +136,39 @@ function comment(e) {
     console.log(commentValue)
     comment2target(commentId,2,commentValue);
 }
+
+/**
+ * 标签点击事件
+ */
+function selectTag(value) {
+    //获取原来的值
+    var previous = $("#tag").val();
+
+    //判断标签是否已经点击,标签是否存在
+    if (previous.indexOf(value) != -1){
+
+    }else {
+        //如果存在则追加内容
+        if (previous) {
+            $("#tag").val(previous+','+value);
+        }else {
+            //如果不存在则直接追加value
+            $("#tag").val(value);
+        }
+    }
+}
+
+/*
+* display: block;
+    display: none;
+* */
+/**
+ * 标签 input 框框获取焦点 修改 标签栏的css
+ */
+function showSelectTag() {
+    $("#select-tag").show();
+}
+
 
 /**
  * 时间戳转日期

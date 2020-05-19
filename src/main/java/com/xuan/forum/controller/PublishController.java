@@ -1,6 +1,8 @@
 package com.xuan.forum.controller;
 
+import com.xuan.forum.cache.TagCahe;
 import com.xuan.forum.dto.QuestionDto;
+import com.xuan.forum.dto.TagDto;
 import com.xuan.forum.mapper.UserMapper;
 import com.xuan.forum.model.Question;
 import com.xuan.forum.model.User;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 
 /**
@@ -31,7 +34,10 @@ public class PublishController {
 
     //跳转到 发起的问题 页面
     @GetMapping("/publish")
-    public String publish(){
+    public String publish(Model model){
+        //加载标签
+        List<TagDto> tags = TagCahe.getTag();
+        model.addAttribute("tags",tags);
         return "publish";
     }
 
@@ -104,6 +110,8 @@ public class PublishController {
         model.addAttribute("description",question.getDescription());
         model.addAttribute("tag",question.getTag());
         model.addAttribute("id",question.getId());
+
+
         return "publish";
     }
 }

@@ -85,9 +85,11 @@ body {
     margin-left: -10px;
 }
 
-/* 标签修斯 */
+/* 标签修饰 */
 .tag_span {
     margin-right: 5px;
+    /*鼠标进国变小手*/
+    cursor:pointer;
 }
 
 
@@ -111,6 +113,13 @@ body {
 /** 推荐内容 图片修饰 */
 .recommend_img {
     width: 100%;
+}
+
+/* 修饰标签内容 */
+#select-tag {
+    /*标签默认隐藏*/
+    display: none;
+    margin-top: 10px;
 }
 
 
