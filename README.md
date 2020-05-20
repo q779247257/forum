@@ -122,6 +122,31 @@ CREATE TABLE `comment`  (
 SET FOREIGN_KEY_CHECKS = 1;
 
 ```
+notification（通知）表sql脚本
+```mysql
+
+
+SET NAMES utf8mb4;
+SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+-- Table structure for notification
+-- ----------------------------
+DROP TABLE IF EXISTS `notification`;
+CREATE TABLE `notification`  (
+  `id` int(0) NOT NULL AUTO_INCREMENT COMMENT '通知主键id',
+  `notifier` int(0) NOT NULL COMMENT '通知的人',
+  `receiver` int(0) NOT NULL COMMENT '接受通知的人',
+  `outerId` int(0) NULL DEFAULT NULL COMMENT '回复的id  回复、问题',
+  `type` int(0) NOT NULL COMMENT '类型：',
+  `gmt_create` bigint(0) NULL DEFAULT NULL COMMENT '新增时间',
+  `status` int(0) NULL DEFAULT NULL COMMENT '0 未读 ； 1 已读',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+SET FOREIGN_KEY_CHECKS = 1;
+
+```
 [Mybatis](https://blog.mybatis.org/)
 
 [Http Client](http://hc.apache.org/)
