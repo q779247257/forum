@@ -22,6 +22,10 @@ body {
     color: #999;
 }
 
+.profile_hr {
+    margin-top: 0px;
+}
+
 /* 文章上边距 */
 .media:first-child {
     margin-top: 30px;
@@ -123,6 +127,13 @@ body {
     /*标签默认隐藏*/
     display: none;
     margin-top: 10px;
+}
+
+.profile_btn {
+    margin-top: 0px;
+    float: initial;
+    margin-bottom: 0px;
+    margin-left: 5px;
 }
 
 

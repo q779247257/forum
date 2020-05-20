@@ -48,7 +48,7 @@
                         <div id="select-tag">
                             <!-- 标签页导航 -->
                             <ul class="nav nav-tabs" role="tablist">
-                                <li  role="presentation" th:each="tagItem,tagStat :${tags}">
+                                <li  role="presentation" th:each="tagItem,tagStat :${tags}"  th:class="${tagStat.index == 0} ? 'active' : '' ">
                                     <a data-toggle="tab" th:href="${'#'+tagItem.tagId}"
                                        role="tab" th:text="${tagItem.categoryName}"  th:aria-controls="${tagItem.tagId}" ></a>
                                 </li>
@@ -57,6 +57,7 @@
                             <!-- 标签页内容 fade in active-->
                             <div class="tab-content">
                                 <div class="tab-pane "
+                                     th:class="${tagItem.getCategoryName().equals('开发语言')} ? 'tab-pane active' : 'tab-pane' "
                                      th:each="tagItem,tagStat :${tags}"
                                      th:id="${tagItem.tagId}" role="tabpanel">
                                     <span th:each="tagSpan,tagStat :${tagItem.getTags()}"
@@ -77,7 +78,7 @@
                     </div>
 
                     <button class="btn btn-success btn-publish" type="submit">提交</button>
-                    <div th:if="${error != null}">
+                    <div  th:if="${error != null}" style="margin: 20px auto auto;">
                         <span class="alert alert-danger" th:text="${error}"></span>
                     </div>
                 </form>

@@ -35,18 +35,22 @@
                         </div>
                         <div class="media-body">
                             <h4 class="media-heading" >
-                                <a  th:text="${info.title}" ref="@{'/question/'+ ${info.id} }"></a>
+                                <a  th:text="${info.title}" th:href="@{'/question/'+ ${info.id} }"></a>
                             </h4>
-<!--                            <span th:text="${info.description}"></span>-->
-                            <br>
+<!--                            <br>-->
                             <span class="test_desc">
                         <span th:text="${info.commentCount}"></span>个回复 ·  <span th:text="${info.viewCout}"></span>次浏览 ·
                                 问题发布时间<span
                                     th:text="${#dates.format(info.getDateByLong(info.gmtCreate), 'yyyy-mm-dd hh:mm:ss')}"></span> ·
                                 最新评论时间<span
                                     th:text="${#dates.format(info.getDateByLong(info.gmtModified), 'yyyy-mm-dd hh:mm:ss')}"></span>
-                        </span>
+                        </span>   ·                     <!-- 编辑按钮开始 -->
+                            <a th:href="@{'/publish/' + ${info.id} }" style="color: #999; font-size: 18px" th:if="${session.user != null && session.user.name == info.creator}">
+                                <button type="button" class="btn btn-success profile_btn">编辑</button>
+                            </a>
                         </div>
+
+                        <!-- 编辑按钮结束 -->
                     </div>
                 </div>
             </div>
