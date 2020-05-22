@@ -13,7 +13,7 @@ public class Comment {
     /** 1：父类id为问题  2：父类id为回复 */
     private Integer type;
 
-    /** 评论人id */
+    /** 评论人的用户id ） */
     private Integer commentator;
 
     /** 创建时间 */

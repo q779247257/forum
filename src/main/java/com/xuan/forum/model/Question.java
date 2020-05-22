@@ -14,7 +14,7 @@ public class Question {
     /** 最新更新时间 */
     private Long gmtModified;
     /** 问题创建人的github账户 */
-    private String creator;
+    private String  creator;
     /** 评论数 */
     private Integer commentCount;
     /** 阅读数 */

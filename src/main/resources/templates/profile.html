@@ -23,7 +23,8 @@
     <div class="container-fluid profile" id="left_main">
         <div class="row">
             <!--左侧文章部分-->
-            <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+            <!-- 我的问题部分 -->
+            <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12" th:if="${section.equals('questions')}">
                 <h2 th:text="${sectionName}"></h2>
                 <div th:each="info,infoStat :${pagination.questionDtoList}">
                     <div class="media" style="margin-top: 30px">
@@ -54,7 +55,14 @@
                     </div>
                 </div>
             </div>
+
+            <!-- 最新回复部分 -->
+            <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12" th:if="${section.equals('repiies')}">
+                最新回复内容
+            </div>
             <!-- 左边文章部分结束 -->
+
+            <!-- 右侧选项部分 -->
             <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
                 <div class="list-group section">
                     <a href="/profile/questions"

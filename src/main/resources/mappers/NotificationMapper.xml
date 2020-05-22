@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xuan.forum.mapper.NotificationMapper">
+  <resultMap id="BaseResultMap" type="com.xuan.forum.model.Notification">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="notifier" jdbcType="INTEGER" property="notifier" />
+    <result column="receiver" jdbcType="INTEGER" property="receiver" />
+    <result column="outerId" jdbcType="INTEGER" property="outerid" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="gmt_create" jdbcType="BIGINT" property="gmtCreate" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, notifier, receiver, outerId, type, gmt_create, status
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from notification
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from notification
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.xuan.forum.model.Notification">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into notification (notifier, receiver, outerId, 
+      type, gmt_create, status
+      )
+    values (#{notifier,jdbcType=INTEGER}, #{receiver,jdbcType=INTEGER}, #{outerid,jdbcType=INTEGER}, 
+      #{type,jdbcType=INTEGER}, #{gmtCreate,jdbcType=BIGINT}, #{status,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xuan.forum.model.Notification">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into notification
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="notifier != null">
+        notifier,
+      </if>
+      <if test="receiver != null">
+        receiver,
+      </if>
+      <if test="outerid != null">
+        outerId,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="notifier != null">
+        #{notifier,jdbcType=INTEGER},
+      </if>
+      <if test="receiver != null">
+        #{receiver,jdbcType=INTEGER},
+      </if>
+      <if test="outerid != null">
+        #{outerid,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="gmtCreate != null">
+        #{gmtCreate,jdbcType=BIGINT},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xuan.forum.model.Notification">
+    update notification
+    <set>
+      <if test="notifier != null">
+        notifier = #{notifier,jdbcType=INTEGER},
+      </if>
+      <if test="receiver != null">
+        receiver = #{receiver,jdbcType=INTEGER},
+      </if>
+      <if test="outerid != null">
+        outerId = #{outerid,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create = #{gmtCreate,jdbcType=BIGINT},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xuan.forum.model.Notification">
+    update notification
+    set notifier = #{notifier,jdbcType=INTEGER},
+      receiver = #{receiver,jdbcType=INTEGER},
+      outerId = #{outerid,jdbcType=INTEGER},
+      type = #{type,jdbcType=INTEGER},
+      gmt_create = #{gmtCreate,jdbcType=BIGINT},
+      status = #{status,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

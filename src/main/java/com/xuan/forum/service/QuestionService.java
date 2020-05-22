@@ -62,7 +62,6 @@ public class QuestionService {
                 questionDto.setUser(new User());
 
             }
-
             questionDtoLit.add(questionDto);
         }
         //设置页面承载元素

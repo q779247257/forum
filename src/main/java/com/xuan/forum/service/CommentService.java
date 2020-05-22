@@ -3,11 +3,15 @@ package com.xuan.forum.service;
 import com.xuan.forum.commonException.MyCustomException;
 import com.xuan.forum.dto.CommentCreateDto;
 import com.xuan.forum.enums.CommentTypeEnum;
+import com.xuan.forum.enums.NotificationStatusEnum;
+import com.xuan.forum.enums.NotificationTypeEnum;
 import com.xuan.forum.enums.ResultEnum;
 import com.xuan.forum.mapper.CommentMapper;
+import com.xuan.forum.mapper.NotificationMapper;
 import com.xuan.forum.mapper.QuestionMapper;
 import com.xuan.forum.mapper.UserMapper;
 import com.xuan.forum.model.Comment;
+import com.xuan.forum.model.Notification;
 import com.xuan.forum.model.Question;
 import com.xuan.forum.model.User;
 import org.slf4j.Logger;
@@ -18,7 +22,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -38,6 +41,10 @@ public class CommentService {
     @Autowired
     private UserMapper userMapper;
 
+    /** 通知mapper类 */
+    @Autowired
+    private NotificationMapper notificationMapper;
+
     /**
      * 增加评论
      */
@@ -52,9 +59,10 @@ public class CommentService {
 
             //增加评论
             commentMapper.insert(comment);
+            //todo 创建通知信息
+            createNotification(comment, parentComment.getCommentator(),NotificationTypeEnum.REPLY_COMMENT);
         }else if (comment.getType() == CommentTypeEnum.QUESTION.getType()){
             //todo 回复问题 id 1
-
 
             //获取父类的问题
             Question parentQuestion = questionMapper.selectByPrimaryKey(comment.getParentId());
@@ -65,7 +73,28 @@ public class CommentService {
             commentMapper.insert(comment);
             //评论数加1
             questionMapper.incComment(comment.getParentId());
+
+            //todo 增加问题通知消息
+            //获取 回复的问题 用户id
+            User receiver = userMapper.findByName(parentQuestion.getCreator());
+            createNotification(comment,receiver.getId(),NotificationTypeEnum.REPLY_QUESTION);
         }
+    }
+
+    /**
+     * @param comment 评论
+     * @param receiver 接受评论的用户id
+     * @param notificationType 通知类型枚举
+     */
+    private void createNotification(Comment comment, Integer receiver, NotificationTypeEnum notificationType) {
+        Notification notification = new Notification();
+        notification.setGmtCreate(System.currentTimeMillis());
+        notification.setType(notificationType.getType());
+        notification.setOuterid(comment.getId());
+        notification.setNotifier(comment.getCommentator());//发起通知的人
+        notification.setStatus(NotificationStatusEnum.UNREAD.getStatus());//设置未读
+        notification.setReceiver(receiver);//设置
+        notificationMapper.insert(notification);
     }
 
     /**
