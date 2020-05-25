@@ -68,8 +68,8 @@
                                 <a th:text="${notification.notifier.name}"></a>
                                 <span th:if="${notification.type == 1}">回复了问题</span>
                                 <span th:if="${notification.type == 2}">回复了评论</span>
-                                <a  th:if="${notification.type == 1}" th:href="@{'/notification/'+ ${notification.outerId}}" th:text="${notification.outerTitle}"></a>
-                                <a  th:if="${notification.type == 2}" th:href="@{'/notification/'+ ${notification.questionId}}" th:text="${notification.outerTitle}"></a>
+                                <a  th:if="${notification.type == 1}" th:href="@{'/notification/'+ ${notification.id}}" th:text="${notification.outerTitle}"></a>
+                                <a  th:if="${notification.type == 2}" th:href="@{'/notification/'+ ${notification.id}}" th:text="${notification.outerTitle}"></a>
                                 <span th:if="${notification.status == 0}" class="label label-danger">未读</span>
                             </h4>
                         </div>

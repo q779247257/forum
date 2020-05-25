@@ -65,10 +65,6 @@ public class ProfileController {
        Integer unreadCount =  notificationService.coutOfStatus(NotificationStatusEnum.UNREAD.getStatus());
         model.addAttribute("unreadCount",unreadCount);
 
-
-
-
-
         return "profile";
     }
 }

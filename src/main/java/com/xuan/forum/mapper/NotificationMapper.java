@@ -35,5 +35,5 @@ public interface NotificationMapper {
      */
     List<Notification> pageListByReceiver(@Param("status") Integer status,@Param("receiver") Integer receiver, @Param("offset")Integer offset, @Param("size")Integer size);
 
-    Integer countByStatus(Integer status);
+    Integer countByStatus(@Param("status")Integer status);
 }

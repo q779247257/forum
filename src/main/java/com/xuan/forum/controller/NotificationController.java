@@ -1,12 +1,10 @@
 package com.xuan.forum.controller;
 
-import com.xuan.forum.dto.PaginationDto;
-import com.xuan.forum.enums.NotificationStatusEnum;
+import com.xuan.forum.dto.NotificationDto;
 import com.xuan.forum.model.User;
 import com.xuan.forum.service.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -24,24 +22,15 @@ public class NotificationController {
     private NotificationService notificationService;
 
     /** 进入通知 */
-    @GetMapping("/notification/{questionId}")
-    public String profile(@PathVariable("questionId") Integer questionId ,
+    @GetMapping("/notification/{notificationId}")
+    public String profile(@PathVariable("notificationId") Integer notificationId ,
                           HttpServletRequest request){
         User user = (User) request.getSession().getAttribute("user");
         if (user == null) return "redirect:/";
 
         //读取通知
-//        notificationService.read(questionId,user,);
+        NotificationDto notificationDto = notificationService.read(notificationId,user);
 
-
-
-        //未读数量
-        Integer unreadCount =  notificationService.coutOfStatus(NotificationStatusEnum.UNREAD.getStatus());
-
-
-
-
-
-        return "profile";
+        return "redirect:/question/"+notificationDto.getQuestionId();
     }
 }

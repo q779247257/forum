@@ -26,14 +26,21 @@
       where receiver = #{id,jdbcType=INTEGER}
     </select>
   <select id="pageListByReceiver" resultMap="BaseResultMap">
-    SELECT * FROM notification where receiver = #{receiver} and status = #{status}  ORDER BY gmt_create DESC LIMIT #{offset} , #{size}
+    SELECT * FROM notification where receiver = #{receiver}
+    <if test="status != null">
+      and status = #{status}
+    </if>
+    ORDER BY gmt_create DESC LIMIT #{offset} , #{size}
   </select>
 
   <select id="countByStatus" resultType="java.lang.Integer">
       select
       count(1)
       from notification
-      where status = #{status,jdbcType=INTEGER}
+      where 1=1
+      <if test="status != null">
+        and status = #{status,jdbcType=INTEGER}
+      </if>
   </select>
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">

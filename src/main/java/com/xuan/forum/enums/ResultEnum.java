@@ -20,7 +20,9 @@ public enum  ResultEnum {
     /** 评论的问题不存在 */
     PARENT_QUESTION_NULL(2005,"你评论的问题不存在或已删除"),
     /** 输入问题不能为null */
-    VALUE_NOT_CAN_NULL(2006,"输入内容不能为空");
+    VALUE_NOT_CAN_NULL(2006,"输入内容不能为空"),
+
+    NOTIFICATION_NOT_OWN(2007,"兄弟？你还想读别人的通知?做梦了?");
     ;
 
     /** 状态码 */

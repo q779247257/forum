@@ -15,9 +15,9 @@ public enum NotificationStatusEnum {
     READ(1),
 
     ;
-    private int status;
+    private Integer status;
 
-    NotificationStatusEnum(int status) {
+    NotificationStatusEnum(Integer status) {
         this.status = status;
     }
 }
