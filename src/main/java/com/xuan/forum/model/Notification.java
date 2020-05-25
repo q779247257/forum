@@ -15,7 +15,7 @@ public class Notification {
     private Integer receiver;
 
     /** 回复的 评论id 或 问题id*/
-    private Integer outerid;
+    private Integer outerId;
 
     /** 类型：1回复 */
     private Integer type;

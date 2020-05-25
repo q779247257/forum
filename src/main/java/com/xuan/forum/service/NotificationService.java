@@ -2,12 +2,15 @@ package com.xuan.forum.service;
 
 import com.xuan.forum.dto.NotificationDto;
 import com.xuan.forum.dto.PaginationDto;
+import com.xuan.forum.enums.NotificationStatusEnum;
 import com.xuan.forum.enums.NotificationTypeEnum;
 import com.xuan.forum.mapper.CommentMapper;
 import com.xuan.forum.mapper.NotificationMapper;
 import com.xuan.forum.mapper.QuestionMapper;
 import com.xuan.forum.mapper.UserMapper;
+import com.xuan.forum.model.Comment;
 import com.xuan.forum.model.Notification;
+import com.xuan.forum.model.Question;
 import com.xuan.forum.model.User;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +31,7 @@ public class NotificationService {
     @Autowired
     private CommentMapper commentMapper;
     /**
-     * 展示通知
+     * 展示未读通知
      * @param userId 用户id
      * @param page 当前页数
      * @param size 每页展示数量
@@ -44,7 +47,7 @@ public class NotificationService {
         //获取数据库查询 offset 参数
         Integer offset = size * (paginationDto.getPage() - 1);
         //查询分页所展示的数据（根据接受通知的人）
-        List<Notification> notifications = notificationMapper.pageListByReceiver(userId,offset,size);
+        List<Notification> notifications = notificationMapper.pageListByReceiver(NotificationStatusEnum.UNREAD.getStatus(),userId,offset,size);
 
         List<NotificationDto> notificationDtos = new ArrayList<>();
         //遍历分页查询到的数据
@@ -59,9 +62,21 @@ public class NotificationService {
             String outerTitle = null;
             //todo 判断通知类型
             if (notificationDto.getType() == NotificationTypeEnum.REPLY_QUESTION.getType()){
-                 outerTitle = questionMapper.selectByPrimaryKey(notification.getOuterid()).getTitle();
+                //通知类型 是问题
+                Question question = questionMapper.selectByPrimaryKey(notification.getOuterId());
+                outerTitle = question.getTitle();
+                notificationDto.setQuestionId(question.getId());
             }else if (notificationDto.getType() == NotificationTypeEnum.REPLY_COMMENT.getType()){
-                outerTitle = commentMapper.selectByPrimaryKey(notification.getOuterid()).getContent();
+                //通知类型 是评论
+
+                //获取评论
+                Comment comment = commentMapper.selectByPrimaryKey(notification.getOuterId());
+
+                //获取父评论
+                Comment ParentComment = commentMapper.selectByPrimaryKey(comment.getParentId());
+                outerTitle = ParentComment.getContent();
+                //父评论的id是文章id
+                notificationDto.setQuestionId(ParentComment.getParentId());
             }else {
                 outerTitle = "通知类型可能有一点问题";
             }
@@ -74,5 +89,15 @@ public class NotificationService {
         paginationDto.setData(notificationDtos);
         paginationDto.setDataCount(totalCount);
         return paginationDto;
+    }
+
+    /**
+     * 根据状态查询通知数量
+     * @param status  0 未读 ； 1 已读
+     * @return
+     */
+    public Integer coutOfStatus(int status) {
+
+        return notificationMapper.countByStatus(status);
     }
 }

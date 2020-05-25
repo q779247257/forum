@@ -65,11 +65,12 @@
                     <div th:each="notification,notificationStat :${pagination.data}" >
                         <div class="media-body">
                             <h4 class="media-heading" >
-                                <!--/*@thymesVar id="notifier" type="com.xuan.forum.model.User"*/-->
                                 <a th:text="${notification.notifier.name}"></a>
                                 <span th:if="${notification.type == 1}">回复了问题</span>
                                 <span th:if="${notification.type == 2}">回复了评论</span>
-                                <a th:text="${notification.outerTitle}"></a>
+                                <a  th:if="${notification.type == 1}" th:href="@{'/notification/'+ ${notification.outerId}}" th:text="${notification.outerTitle}"></a>
+                                <a  th:if="${notification.type == 2}" th:href="@{'/notification/'+ ${notification.questionId}}" th:text="${notification.outerTitle}"></a>
+                                <span th:if="${notification.status == 0}" class="label label-danger">未读</span>
                             </h4>
                         </div>
                         <!--/*@thymesVar id="gmtCreate" type="java.lang.Long"*/-->
@@ -91,10 +92,11 @@
                 <div class="list-group section">
                     <a href="/profile/questions"
                        th:class="${section.equals('questions')} ? 'list-group-item active' : 'list-group-item' ">我的问题
-                        <span class="badge" th:text="${pagination.getDataCount()}"></span></a>
+<!--                        <span class="badge" th:text="${pagination.getDataCount()}"></span>-->
+                    </a>
                     <a href="/profile/repiies"
                        th:class="${section.equals('repiies')} ? 'list-group-item active' : 'list-group-item' ">最新回复<span
-                                class="badge" th:text="${pagination.getDataCount()}"></span></a>
+                                class="badge" th:text="${unreadCount}"></span></a>
                     <a href="#" class="list-group-item">Morbi leo risus <span class="badge">14</span></a>
                 </div>
             </div>

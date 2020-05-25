@@ -5,7 +5,7 @@
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="notifier" jdbcType="INTEGER" property="notifier" />
     <result column="receiver" jdbcType="INTEGER" property="receiver" />
-    <result column="outerId" jdbcType="INTEGER" property="outerid" />
+    <result column="outerId" jdbcType="INTEGER" property="outerId" />
     <result column="type" jdbcType="INTEGER" property="type" />
     <result column="gmt_create" jdbcType="BIGINT" property="gmtCreate" />
     <result column="status" jdbcType="INTEGER" property="status" />
@@ -26,8 +26,16 @@
       where receiver = #{id,jdbcType=INTEGER}
     </select>
   <select id="pageListByReceiver" resultMap="BaseResultMap">
-    SELECT * FROM notification where receiver = #{receiver}  ORDER BY gmt_create DESC LIMIT #{offset} , #{size}
+    SELECT * FROM notification where receiver = #{receiver} and status = #{status}  ORDER BY gmt_create DESC LIMIT #{offset} , #{size}
   </select>
+
+  <select id="countByStatus" resultType="java.lang.Integer">
+      select
+      count(1)
+      from notification
+      where status = #{status,jdbcType=INTEGER}
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from notification
     where id = #{id,jdbcType=INTEGER}
@@ -39,7 +47,7 @@
     insert into notification (notifier, receiver, outerId, 
       type, gmt_create, status
       )
-    values (#{notifier,jdbcType=INTEGER}, #{receiver,jdbcType=INTEGER}, #{outerid,jdbcType=INTEGER}, 
+    values (#{notifier,jdbcType=INTEGER}, #{receiver,jdbcType=INTEGER}, #{outerId,jdbcType=INTEGER},
       #{type,jdbcType=INTEGER}, #{gmtCreate,jdbcType=BIGINT}, #{status,jdbcType=INTEGER}
       )
   </insert>
@@ -55,7 +63,7 @@
       <if test="receiver != null">
         receiver,
       </if>
-      <if test="outerid != null">
+      <if test="outerId != null">
         outerId,
       </if>
       <if test="type != null">
@@ -75,8 +83,8 @@
       <if test="receiver != null">
         #{receiver,jdbcType=INTEGER},
       </if>
-      <if test="outerid != null">
-        #{outerid,jdbcType=INTEGER},
+      <if test="outerId != null">
+        #{outerId,jdbcType=INTEGER},
       </if>
       <if test="type != null">
         #{type,jdbcType=INTEGER},
@@ -98,8 +106,8 @@
       <if test="receiver != null">
         receiver = #{receiver,jdbcType=INTEGER},
       </if>
-      <if test="outerid != null">
-        outerId = #{outerid,jdbcType=INTEGER},
+      <if test="outerId != null">
+        outerId = #{outerId,jdbcType=INTEGER},
       </if>
       <if test="type != null">
         type = #{type,jdbcType=INTEGER},
@@ -117,7 +125,7 @@
     update notification
     set notifier = #{notifier,jdbcType=INTEGER},
       receiver = #{receiver,jdbcType=INTEGER},
-      outerId = #{outerid,jdbcType=INTEGER},
+      outerId = #{outerId,jdbcType=INTEGER},
       type = #{type,jdbcType=INTEGER},
       gmt_create = #{gmtCreate,jdbcType=BIGINT},
       status = #{status,jdbcType=INTEGER}

@@ -19,6 +19,12 @@ public class NotificationDto {
     /** 0 未读 ； 1 已读 */
     private Integer status;
 
+    /** 回复的 评论id 或 问题id*/
+    private Integer outerId;
+
+    /** 问题id 用于评论的时候展示 */
+    private Integer questionId;
+
     /** 通知的人 */
     private User notifier;
 

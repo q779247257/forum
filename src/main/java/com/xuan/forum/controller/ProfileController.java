@@ -1,6 +1,7 @@
 package com.xuan.forum.controller;
 
 import com.xuan.forum.dto.PaginationDto;
+import com.xuan.forum.enums.NotificationStatusEnum;
 import com.xuan.forum.mapper.UserMapper;
 import com.xuan.forum.model.Notification;
 import com.xuan.forum.model.User;
@@ -59,6 +60,11 @@ public class ProfileController {
             PaginationDto pagination = notificationService.list(user.getId(),page,size);
             model.addAttribute("pagination", pagination);
         }
+
+        //未读数量
+       Integer unreadCount =  notificationService.coutOfStatus(NotificationStatusEnum.UNREAD.getStatus());
+        model.addAttribute("unreadCount",unreadCount);
+
 
 
 

@@ -27,10 +27,13 @@ public interface NotificationMapper {
 
     /**
      * 分页查询通知
+     * @param status 0 未读 ； 1 已读
      * @param receiver 接受通知的人
      * @param offset 当前页
      * @param size 每页展示数量
      * @return
      */
-    List<Notification> pageListByReceiver(@Param("receiver") Integer receiver, @Param("offset")Integer offset, @Param("size")Integer size);
+    List<Notification> pageListByReceiver(@Param("status") Integer status,@Param("receiver") Integer receiver, @Param("offset")Integer offset, @Param("size")Integer size);
+
+    Integer countByStatus(Integer status);
 }
