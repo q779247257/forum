@@ -26,7 +26,8 @@
             <!-- 我的问题部分 -->
             <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12" th:if="${section.equals('questions')}">
                 <h2 th:text="${sectionName}"></h2>
-                <div th:each="info,infoStat :${pagination.questionDtoList}">
+                <!--/*@thymesVar id="info" type="com.xuan.forum.dto.QuestionDto"*/-->
+                <div th:each="info,infoStat :${pagination.data}">
                     <div class="media" style="margin-top: 30px">
                         <div class="media-left media-middle">
                             <a href="#">
@@ -58,7 +59,30 @@
 
             <!-- 最新回复部分 -->
             <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12" th:if="${section.equals('repiies')}">
-                最新回复内容
+
+                <div class="media" style="margin-top: 30px">
+                    <!--/*@thymesVar id="notification" type="com.xuan.forum.dto.NotificationDto"*/-->
+                    <div th:each="notification,notificationStat :${pagination.data}" >
+                        <div class="media-body">
+                            <h4 class="media-heading" >
+                                <!--/*@thymesVar id="notifier" type="com.xuan.forum.model.User"*/-->
+                                <a th:text="${notification.notifier.name}"></a>
+                                <span th:if="${notification.type == 1}">回复了问题</span>
+                                <span th:if="${notification.type == 2}">回复了评论</span>
+                                <a th:text="${notification.outerTitle}"></a>
+                            </h4>
+                        </div>
+                        <!--/*@thymesVar id="gmtCreate" type="java.lang.Long"*/-->
+                        <span class="test_desc" th:text="${#dates.format(notification.gmtCreate, 'yyyy-mm-dd hh:mm:ss')}"></span>
+                        <br>
+                        <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    </div>
+
+                </div>
+                <!--  判断有没有通知 -->
+                <div th:if="${pagination.dataCount == 0}">
+                    <h2>暂时没有通知</h2>
+                </div>
             </div>
             <!-- 左边文章部分结束 -->
 
@@ -67,13 +91,11 @@
                 <div class="list-group section">
                     <a href="/profile/questions"
                        th:class="${section.equals('questions')} ? 'list-group-item active' : 'list-group-item' ">我的问题
-                        <span class="badge" th:text="${pagination.questionTotalCount}">14</span></a>
+                        <span class="badge" th:text="${pagination.getDataCount()}"></span></a>
                     <a href="/profile/repiies"
                        th:class="${section.equals('repiies')} ? 'list-group-item active' : 'list-group-item' ">最新回复<span
-                            class="badge">14</span></a>
+                                class="badge" th:text="${pagination.getDataCount()}"></span></a>
                     <a href="#" class="list-group-item">Morbi leo risus <span class="badge">14</span></a>
-                    <a href="#" class="list-group-item">Porta ac consectetur ac <span class="badge">15</span></a>
-                    <a href="#" class="list-group-item">Vestibulum at eros <span class="badge">16</span></a>
                 </div>
             </div>
             <!-- 左边文章列表部分结束 -->

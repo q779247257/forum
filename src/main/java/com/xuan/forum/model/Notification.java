@@ -1,74 +1,30 @@
 package com.xuan.forum.model;
 
+import lombok.Data;
+
+@Data
 public class Notification {
 
+    /** 通知id */
     private Integer id;
 
+    /** 发起通知的人 */
     private Integer notifier;
 
+    /** 接受通知的人 */
     private Integer receiver;
 
+    /** 回复的 评论id 或 问题id*/
     private Integer outerid;
 
+    /** 类型：1回复 */
     private Integer type;
 
+    /** 新增时间 */
     private Long gmtCreate;
 
+    /** 0 未读 ； 1 已读 */
     private Integer status;
 
-    public Integer getId() {
-        return id;
-    }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Integer getNotifier() {
-        return notifier;
-    }
-
-    public void setNotifier(Integer notifier) {
-        this.notifier = notifier;
-    }
-
-    public Integer getReceiver() {
-        return receiver;
-    }
-
-    public void setReceiver(Integer receiver) {
-        this.receiver = receiver;
-    }
-
-    public Integer getOuterid() {
-        return outerid;
-    }
-
-    public void setOuterid(Integer outerid) {
-        this.outerid = outerid;
-    }
-
-    public Integer getType() {
-        return type;
-    }
-
-    public void setType(Integer type) {
-        this.type = type;
-    }
-
-    public Long getGmtCreate() {
-        return gmtCreate;
-    }
-
-    public void setGmtCreate(Long gmtCreate) {
-        this.gmtCreate = gmtCreate;
-    }
-
-    public Integer getStatus() {
-        return status;
-    }
-
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
 }

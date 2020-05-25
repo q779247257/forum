@@ -1,6 +1,5 @@
 package com.xuan.forum.service;
 
-import com.sun.org.apache.bcel.internal.generic.IF_ACMPEQ;
 import com.xuan.forum.dto.PaginationDto;
 import com.xuan.forum.dto.QuestionDto;
 import com.xuan.forum.mapper.QuestionMapper;
@@ -30,17 +29,17 @@ public class QuestionService {
 
 
     /**
-     * 分页数据 service层
+     * 分页数据 展示问题
      * @param page 页数
      * @param size 每页展示数量
      * @return
      */
-    public PaginationDto list(Integer page, Integer size) {
+    public PaginationDto<QuestionDto> list(Integer page, Integer size) {
 
         /** 获取所有的数量 */
         Integer totalCount = questionMapper.count();
 
-        PaginationDto paginationDto = new PaginationDto();
+        PaginationDto<QuestionDto> paginationDto = new PaginationDto<>();
         //设置分页参数
         paginationDto.setPagination(totalCount,page,size);
         //获取数据库查询 offset
@@ -65,7 +64,7 @@ public class QuestionService {
             questionDtoLit.add(questionDto);
         }
         //设置页面承载元素
-        paginationDto.setQuestionDtoList(questionDtoLit);
+        paginationDto.setData(questionDtoLit);
         return paginationDto;
 
     }
@@ -76,11 +75,11 @@ public class QuestionService {
      * @param page 页数
      * @param size 每页展示数量
      */
-    public PaginationDto list(String userName, Integer page, Integer size) {
+    public PaginationDto<QuestionDto> list(String userName, Integer page, Integer size) {
         /** 获取所有的数量 */
         Integer totalCount = questionMapper.countByUserId(userName);
 
-        PaginationDto paginationDto = new PaginationDto();
+        PaginationDto<QuestionDto> paginationDto = new PaginationDto<QuestionDto>();
         //设置分页参数
         paginationDto.setPagination(totalCount,page,size);
         //获取数据库查询 offset 参数
@@ -100,8 +99,8 @@ public class QuestionService {
             questionDtoLit.add(questionDto);
         }
         //设置页面承载元素
-        paginationDto.setQuestionDtoList(questionDtoLit);
-        paginationDto.setQuestionTotalCount(totalCount);
+        paginationDto.setData(questionDtoLit);
+        paginationDto.setDataCount(totalCount);
         return paginationDto;
     }
 

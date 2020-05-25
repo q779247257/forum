@@ -1,6 +1,9 @@
 package com.xuan.forum.mapper;
 
 import com.xuan.forum.model.Notification;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface NotificationMapper {
     int deleteByPrimaryKey(Integer id);
@@ -14,4 +17,20 @@ public interface NotificationMapper {
     int updateByPrimaryKeySelective(Notification record);
 
     int updateByPrimaryKey(Notification record);
+
+    /**
+     * 根据接受通知的人，查询通知总数量
+     * @param receiver 接受通知的人
+     * @return
+     */
+    Integer countByReceiver(Integer receiver);
+
+    /**
+     * 分页查询通知
+     * @param receiver 接受通知的人
+     * @param offset 当前页
+     * @param size 每页展示数量
+     * @return
+     */
+    List<Notification> pageListByReceiver(@Param("receiver") Integer receiver, @Param("offset")Integer offset, @Param("size")Integer size);
 }

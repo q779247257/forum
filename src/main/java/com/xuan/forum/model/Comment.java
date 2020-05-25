@@ -25,7 +25,7 @@ public class Comment {
     /** 点赞数 */
     private Integer likeCount;
 
-    /** pinglun neir  */
+    /** 评论蕾蕾 */
     private String content;
 
 }

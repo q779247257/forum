@@ -11,9 +11,9 @@ import java.util.List;
  * @描述： 分页DTO类
  */
 @Data
-public class PaginationDto {
+public class PaginationDto<T> {
     /** 页面承载的元素 */
-    private List<QuestionDto> questionDtoList;
+    private List<T> data;
     /** 是否有 向前（上一页）按钮 */
     private boolean showPrevious;
     /** 是否有第一页按钮 */
@@ -23,7 +23,7 @@ public class PaginationDto {
     /** 是否有末页 */
     private boolean showEndPage;
     /** 数据的数量 */
-    private Integer questionTotalCount;
+    private Integer dataCount;
     /** 当前页 */
     private Integer page;
     /** 最大页 */

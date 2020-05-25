@@ -89,8 +89,15 @@ public class CommentService {
     private void createNotification(Comment comment, Integer receiver, NotificationTypeEnum notificationType) {
         Notification notification = new Notification();
         notification.setGmtCreate(System.currentTimeMillis());
-        notification.setType(notificationType.getType());
-        notification.setOuterid(comment.getId());
+        int type = notificationType.getType();
+        notification.setType(type);
+        //回复评论 outerID为评论id
+        if (type == NotificationTypeEnum.REPLY_COMMENT.getType()){
+            notification.setOuterid(comment.getId());
+        }else if (type == NotificationTypeEnum.REPLY_QUESTION.getType()){
+            //回复问题， outerId为问题id
+            notification.setOuterid(comment.getParentId());
+        }
         notification.setNotifier(comment.getCommentator());//发起通知的人
         notification.setStatus(NotificationStatusEnum.UNREAD.getStatus());//设置未读
         notification.setReceiver(receiver);//设置

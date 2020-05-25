@@ -27,30 +27,9 @@ class ForumApplicationTests {
     private UserMapper userMapper;
 
 
-    /** 页面数据展示*/
-    @Test
-    public void contextLoads() {
-        AtomicInteger cout = new AtomicInteger();
-        questionService.list(1,10).getQuestionDtoList().forEach(item -> {
-            System.out.println(item);
-        });
-    }
 
-    /** 分页测试 */
-    @Test
-    public void testPageLimit(){
 
-        System.out.println("第1页数据--------------------------------------------");
-        PaginationDto pageInfo = questionService.list(1, 5);
-        pageInfo.getQuestionDtoList().forEach(item -> {
-            System.out.println(item);
-        });
-    }
-    @Test
-    public void testUser(){
-        User user = userMapper.findByName("q779247257");
-        System.out.println("查询到数据："+user);
-    }
+
 
     @Test
     public void ObjectToJson(){

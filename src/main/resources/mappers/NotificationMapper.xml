@@ -19,6 +19,15 @@
     from notification
     where id = #{id,jdbcType=INTEGER}
   </select>
+    <select id="countByReceiver" resultType="java.lang.Integer">
+      select
+      count(1)
+      from notification
+      where receiver = #{id,jdbcType=INTEGER}
+    </select>
+  <select id="pageListByReceiver" resultMap="BaseResultMap">
+    SELECT * FROM notification where receiver = #{receiver}  ORDER BY gmt_create DESC LIMIT #{offset} , #{size}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from notification
     where id = #{id,jdbcType=INTEGER}

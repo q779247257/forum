@@ -10,7 +10,7 @@ import lombok.Getter;
 @Getter
 public enum NotificationTypeEnum {
     REPLY_QUESTION(1,"回复问题 "),
-    REPLY_COMMENT(1,"回复了评论")
+    REPLY_COMMENT(2,"回复了评论")
     ;
     /** 状态 */
     private int type;
@@ -20,5 +20,15 @@ public enum NotificationTypeEnum {
     NotificationTypeEnum(int type, String name) {
         this.type = type;
         this.name = name;
+    }
+
+
+    public static NotificationTypeEnum getByType(Integer type){
+        for (NotificationTypeEnum item : values()){
+            if (item.getType() == type){
+                return item;
+            }
+        }
+        return null;
     }
 }

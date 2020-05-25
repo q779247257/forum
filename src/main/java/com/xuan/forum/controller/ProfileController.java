@@ -2,7 +2,9 @@ package com.xuan.forum.controller;
 
 import com.xuan.forum.dto.PaginationDto;
 import com.xuan.forum.mapper.UserMapper;
+import com.xuan.forum.model.Notification;
 import com.xuan.forum.model.User;
+import com.xuan.forum.service.NotificationService;
 import com.xuan.forum.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,6 +28,8 @@ public class ProfileController {
 
     @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private NotificationService notificationService;
 
     /**
      * 个人选项卡 我的问题跳转
@@ -38,20 +42,26 @@ public class ProfileController {
                             @RequestParam(name = "page", defaultValue = "1") Integer page, //当前页数
                           @RequestParam(name = "size", defaultValue = "5") Integer size){
         User user = (User) request.getSession().getAttribute("user");
-        if (user == null){
-            return "redirect:/";
-        }
+        if (user == null) return "redirect:/";
+
         if ("questions".equals(action) ){
             model.addAttribute("section","questions");
             model.addAttribute("sectionName","我的提问");
-        }else if ("repiies".equals(action)){
+            //todo 查询问题
+            PaginationDto pagination = questionService.list(user.getName(), page, size);
+            model.addAttribute("pagination", pagination);
+        }else
+        //todo 最新回复
+        if ("repiies".equals(action)){
             model.addAttribute("section","repiies");
             model.addAttribute("sectionName","最新回复");
+            //todo 查询通知问题
+            PaginationDto pagination = notificationService.list(user.getId(),page,size);
+            model.addAttribute("pagination", pagination);
         }
 
 
-        PaginationDto pagination = questionService.list(user.getName(), page, size);
-        model.addAttribute("pagination", pagination);
+
 
         return "profile";
     }
