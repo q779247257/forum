@@ -5,6 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <title>社区名字</title>
+    <link href="/css/editormd.min.css" rel="stylesheet">
     <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
     <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
     <link href="/css/bootstrap.min.css" rel="stylesheet">
@@ -14,6 +15,7 @@
     <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
     <script src="/js/bootstrap.min.js" type="text/javascript"></script>
     <script src="/js/community.js" type="text/javascript"></script>
+    <script src="/js/editormd.min.js" type="text/javascript"></script>
 </head>
 <body>
 <!-- 导航栏的引用 -->
@@ -28,17 +30,31 @@
                 <form action="/publish" method="post">
                     <input name="id" th:value="${id}" type="hidden">
                     <!--                    问题标题-->
-                    <div class="form-group">
+                    <div class="form-group" >
                         <label for="title">问题标题（简单扼要）：</label>
                         <input class="form-control" id="title" name="title" placeholder="问题标题" th:value="${title}"
                                type="text">
                     </div>
                     <!--                问题补充-->
-                    <div class="form-group">
+                    <div class="form-group"  id="question-editor">
                         <label for="title">问题补充（必填，请参照右侧提示）：</label>
-                        <textarea class="form-control" cols="30" id="description" name="description" rows="10"
+                        <textarea class="form-control" cols="30" id="description"
+                                  name="description" rows="10"  style="display:none;"
                                   th:text="${description}"></textarea>
                     </div>
+                    <script type="text/javascript">
+                        $(function() {
+                            var editor = editormd("question-editor", {
+                                width  : "100%",
+                                height : "400px",
+                                path   : "/js/lib/",
+                                delay  : 0,
+                                /* 关闭实时预览 */
+                                watch : false,
+                                placeholder : "## 请在这里输入您的问题!" /* 编辑器灰色提示内容 */
+                            });
+                        });
+                    </script>
                     <!--                添加标签-->
                     <div class="form-group">
                         <label for="title">添加标签：</label>

@@ -1,9 +1,8 @@
 ## PCF社区
 PCF社区是一个95后的新手码农搭建的基于Github账号的IT技术交流平台，全称 (Programmer Communication forum)。
-旨为打造更好的技术交流平台,相互学习，相互进步.
+旨为打造更好的技术交流平台,相互学习，相互进步；实现了、支持github授权登录、富文本编辑器、二级评论等；
 
-![首页](https://img-blog.csdnimg.cn/20200429144734299.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxNzc5MjQ3MjU3,size_16,color_FFFFFF,t_70)
-
+![问题页](https://img-blog.csdnimg.cn/20200526145111151.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxNzc5MjQ3MjU3,size_16,color_FFFFFF,t_70)
 
 ## 资料
 [项目码云地址](https://gitee.com/xing_xuanxuan/forum)
@@ -150,3 +149,7 @@ SET FOREIGN_KEY_CHECKS = 1;
 [Mybatis](https://blog.mybatis.org/)
 
 [Http Client](http://hc.apache.org/)
+
+[Editor](http://editor.md.ipandao.com/)
+
+[Editor参考Github](https://github.com/pandao/editor.md)
