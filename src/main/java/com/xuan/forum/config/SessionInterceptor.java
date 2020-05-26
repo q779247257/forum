@@ -1,13 +1,12 @@
 package com.xuan.forum.config;
 
-import com.xuan.forum.dto.PaginationDto;
+import com.xuan.forum.enums.NotificationStatusEnum;
 import com.xuan.forum.mapper.UserMapper;
 import com.xuan.forum.model.User;
-import com.xuan.forum.provider.GithubProvider;
+import com.xuan.forum.service.NotificationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -28,6 +27,8 @@ public class SessionInterceptor implements HandlerInterceptor {
 
     @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private NotificationService notificationService;
 
     //这个方法是在访问接口之前执行的，我们只需要在这里写验证登陆状态的业务逻辑，就可以在用户调用指定接口之前验证登陆状态了
     @Override
@@ -45,6 +46,9 @@ public class SessionInterceptor implements HandlerInterceptor {
                     //如果数据库中有token的话，代表已经登录
                     if (user != null) {
                         request.getSession().setAttribute("user", user);
+                        //未读数量
+                        Integer unreadCount =  notificationService.coutOfStatus(NotificationStatusEnum.UNREAD.getStatus(),user.getId());
+                        request.getSession().setAttribute("unreadCount", unreadCount);
                         logger.info("拦截器通过成功，用户放入Session的信息为" + user.toString());
                         return true;
                     }

@@ -95,10 +95,11 @@ public class NotificationService {
     /**
      * 根据状态查询通知数量
      * @param status  0 未读 ； 1 已读
+     * @param userId  用户id；接受通知的用户
      * @return
      */
-    public Integer coutOfStatus(Integer status) {
-        return notificationMapper.countByStatus(status);
+    public Integer coutOfStatus(Integer status,Integer userId) {
+        return notificationMapper.countByStatus(status,userId);
     }
 
 
@@ -110,6 +111,7 @@ public class NotificationService {
      */
     public NotificationDto read(Integer notificationId, User user) {
         Notification notification = notificationMapper.selectByPrimaryKey(notificationId);
+        if (notification == null ) throw new MyCustomException(ResultEnum.NOTIFICATION_IS_NU);
         //校验通知是否属于自己
         if (notification.getReceiver() != user.getId()) throw new MyCustomException(ResultEnum.NOTIFICATION_NOT_OWN);
         NotificationDto notificationDto = new NotificationDto();
@@ -135,6 +137,10 @@ public class NotificationService {
             outerTitle = "通知类型可能有一点问题";
         }
         //todo 更新通知  已读状态
+        Notification updateNotification = new Notification();
+        updateNotification.setId(notificationId);
+        updateNotification.setStatus(NotificationStatusEnum.READ.getStatus());
+        notificationMapper.updateByPrimaryKeySelective(updateNotification);
 
         return notificationDto;
     }

@@ -21,8 +21,9 @@ public enum  ResultEnum {
     PARENT_QUESTION_NULL(2005,"你评论的问题不存在或已删除"),
     /** 输入问题不能为null */
     VALUE_NOT_CAN_NULL(2006,"输入内容不能为空"),
-
-    NOTIFICATION_NOT_OWN(2007,"兄弟？你还想读别人的通知?做梦了?");
+    /** 读到了不属于自己的通知  */
+    NOTIFICATION_NOT_OWN(2007,"兄弟？你还想读别人的通知?做梦了?"),
+    NOTIFICATION_IS_NU(2008,"鬼知道你要看的是什么通知?");
     ;
 
     /** 状态码 */
