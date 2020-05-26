@@ -30,4 +30,12 @@ public class MyExceptionHander {
     public Object MyCustomException(MyCustomException exception){
         return ResultDto.errorOf(exception);
     }
+
+    @ExceptionHandler(MyRedirectException.class)
+    public String redirectException(MyRedirectException e , Model model){
+        String message = e.getMessage();
+        log.error("抛"+ e +"异常，"+message);
+        model.addAttribute("msg",e.getMessage());
+        return "error";
+    }
 }

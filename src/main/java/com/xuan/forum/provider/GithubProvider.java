@@ -1,8 +1,10 @@
 package com.xuan.forum.provider;
 
 import com.alibaba.fastjson.JSON;
+import com.xuan.forum.commonException.MyRedirectException;
 import com.xuan.forum.dto.GithubAccessTokenDto;
 import com.xuan.forum.dto.GithubUser;
+import com.xuan.forum.enums.ResultEnum;
 import okhttp3.*;
 
 import org.slf4j.Logger;
@@ -106,6 +108,7 @@ public class GithubProvider {
             }
         } catch (Exception e) {
             logger.error("获取github的资料时异常:"+e);
+            throw new MyRedirectException(ResultEnum.GITHUB_LOGIN_ERROR);
         }
         // 使用finally块来关闭输入流
         finally {
