@@ -2,7 +2,9 @@ package com.xuan.forum.provider;
 
 import com.aliyun.oss.OSSClient;
 import com.xuan.forum.utils.UuidUtils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.ByteArrayInputStream;
@@ -16,12 +18,16 @@ import java.util.Date;
  */
 @Component
 public class AlbabaOssProvider {
-    public static String picOSS(MultipartFile uploadFile)  {
-        String endpoint = "http://oss-cn-shanghai.aliyuncs.com/";
-        // 云账号AccessKey有所有API访问权限，建议遵循阿里云安全最佳实践，创建并使用RAM子账号进行API访问或日常运维，请登录
-        // https://ram.console.aliyun.com 创建
-        String accessKeyId = "LTAI4FkcLtwaSxLUcy7bfY9B";
-        String accessKeySecret = "KoNNamQoL5rFdKHLQhYSrg2z5w18Vb";
+    @Value("${alibaba.oss.endpoint}")
+    private String endpoint;
+    @Value("${alibaba.access_key_id}")
+    private String accessKeyId;
+    @Value("${alibaba.access.key_secret}")
+    private String accessKeySecret;
+    @Value("${alibaba.bucket.name}")
+    private String bucketName;
+
+    public  String picOSS(MultipartFile uploadFile)  {
         // 创建OSSClient实例
         OSSClient ossClient = new OSSClient(endpoint, accessKeyId, accessKeySecret);
         //获取文件后缀
@@ -30,15 +36,40 @@ public class AlbabaOssProvider {
         String filename =  UuidUtils.getUuid()+suffix;
         // 上传
         try {
-            ossClient.putObject("xuanandjava", filename, new ByteArrayInputStream(uploadFile.getBytes()));
+            ossClient.putObject(bucketName, filename, new ByteArrayInputStream(uploadFile.getBytes()));
         } catch (IOException e) {
             e.printStackTrace();
         }
         // 关闭client
         ossClient.shutdown();
         Date expiration = new Date(new Date().getTime() + 3600l * 1000 * 24 * 365 * 10);
-        String url = ossClient.generatePresignedUrl("xuanandjava", filename, expiration).toString();
-        System.out.println("url:"+url);
+        String url = ossClient.generatePresignedUrl(bucketName, filename, expiration).toString();
         return url;
+    }
+
+
+    /**
+     * 校验图片是否合法
+     * @param imgName 图片名称
+     * @return ture 合法  false 不合法
+     */
+    public boolean checkSuffix(String imgName) {
+        Boolean flag =false;
+        //图片格式
+        String[] FILETYPES = new String[]{
+                ".jpg", ".bmp", ".jpeg", ".png", ".gif",
+                ".JPG", ".BMP", ".JPEG", ".PNG", ".GIF"
+        };
+        if(!StringUtils.isEmpty(imgName)){
+            for (int i = 0; i < FILETYPES.length; i++) {
+                String fileType = FILETYPES[i];
+                if (imgName.endsWith(fileType)) {
+                    flag = true;
+                    break;
+                }
+            }
+        }
+
+        return flag;
     }
 }
