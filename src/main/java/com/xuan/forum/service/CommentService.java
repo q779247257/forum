@@ -87,6 +87,10 @@ public class CommentService {
      * @param notificationType 通知类型枚举
      */
     private void createNotification(Comment comment, Integer receiver, NotificationTypeEnum notificationType) {
+        //如果是自己评论自己 不用通知
+        if (receiver == comment.getCommentator()){
+            return;
+        }
         Notification notification = new Notification();
         notification.setGmtCreate(System.currentTimeMillis());
         int type = notificationType.getType();

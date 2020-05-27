@@ -40,7 +40,8 @@ public class HelloTestController {
     @GetMapping("/")
     public String index(HttpServletRequest request, Model model,
                         @RequestParam(name = "page", defaultValue = "1") Integer page, //当前页数
-                        @RequestParam(name = "size", defaultValue = "5") Integer size
+                        @RequestParam(name = "size", defaultValue = "5") Integer size,
+                        @RequestParam(name = "serach", required = false) String serach
     ) {
         PaginationDto pagination = questionService.list(page, size);
         logger.info("首页分页返回的数据:"+ JSON.toJSONString(pagination));

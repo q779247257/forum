@@ -153,3 +153,5 @@ SET FOREIGN_KEY_CHECKS = 1;
 [Editor](http://editor.md.ipandao.com/)
 
 [Editor参考Github](https://github.com/pandao/editor.md)
+
+[阿里OSS对象存储](https://help.aliyun.com/product/31815.html)
