@@ -22,7 +22,7 @@ public interface QuestionMapper {
 
     Integer count();
 
-    List<Question> pageList(@Param("offset") Integer offset, @Param("size")Integer size);
+    List<Question> pageList(@Param("offset") Integer offset, @Param("size") Integer size, @Param("serach")String serach);
 
     Integer countByUserId(String githubUsername);
 
@@ -37,4 +37,6 @@ public interface QuestionMapper {
     /** 根据标签查询相关问题 */
     List<Question> selectRelated(Question question);
 
+    /** 根据搜索内容查询数量 */
+    Integer countBySerach(String serachTitle);
 }

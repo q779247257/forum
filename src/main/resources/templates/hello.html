@@ -42,6 +42,7 @@
                     <div class="media" style="margin-top: 30px">
                         <div class="media-left media-middle">
                             <a href="#">
+                                <!--/*@thymesVar id="user" type="com.xuan.forum.model.User"*/-->
                                 <img class="media-object img-rounded" style="width: 40px"
                                      th:src="${info.user.avatarUrl}" alt="..."/>
                             </a>
@@ -79,14 +80,15 @@
             <!--  文章下方分页列表开始 -->
             <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12" >
                 <ul class="pagination">
-                    <li th:if="${pagination.showFirsPage}" ><a href="/?page=1">首页</a></li>
-                    <li th:if="${pagination.showPrevious}" ><a th:href="@{'/?page=' + ${pagination.page -1} }" >上一页</a></li>
+                    <li th:if="${pagination.showFirsPage}" ><a th:href="@{/(page = 1,serach=${serach}) }" >首页</a></li>
+                    <li th:if="${pagination.showPrevious}" ><a th:href="@{/(page= ${pagination.page -1},serach=${serach}) }" >上一页</a></li>
 
-                    <li  th:each="info,infoState :${pagination.pages}" th:class="${pagination.page == info} ? 'active' : '' " >
-                        <a th:href="@{'/?page='+${info}}" th:text="${info}" ></a>
+                    <li   th:each="info,infoState :${pagination.pages}" th:class="${pagination.page == info} ? 'active' : '' " >
+                        <a th:href="@{/(page=${info},serach=${serach})}" th:text="${info}" ></a>
                     </li>
-                    <li th:if="${pagination.showNext}"><a th:href="@{'/?page=' + ${pagination.page +1} }" >下一页</a></li>
-                    <li th:if="${pagination.showEndPage}"><a th:href="@{'/?page=' + ${pagination.totalPage} }"  >末页</a></li>
+<!--                    <li th:if="${pagination.showNext}"><a th:href="@{'/?page=' + ${pagination.page +1} }" >下一页</a></li>-->
+                    <li th:if="${pagination.showNext}"><a th:href="@{/(page = ${pagination.page +1},serach=${serach}) }" >下一页</a></li>
+                    <li th:if="${pagination.showEndPage}"><a th:href="@{/(page=${pagination.totalPage},serach=${serach}) }"  >末页</a></li>
                 </ul>
             </div>
             <!-- 文章下方分页列表结束 -->

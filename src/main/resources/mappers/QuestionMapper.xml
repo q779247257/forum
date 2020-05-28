@@ -33,7 +33,11 @@
   </select>
 
     <select id="pageList" parameterType="java.util.Map" resultMap="ResultMapWithBLOBs">
-    SELECT * FROM question  ORDER BY gmt_modified DESC LIMIT #{offset} , #{size}
+    SELECT * FROM question
+    <if test="serach != null and serach != ''">
+        where title like "%"#{serach}"%"
+    </if>
+      ORDER BY gmt_modified DESC LIMIT #{offset} , #{size}
   </select>
 
     <select id="count" parameterType="java.lang.Integer" resultType="java.lang.Integer">
@@ -209,4 +213,7 @@
     where id != #{id} and tag regexp #{tag}
     ORDER BY gmt_modified DESC
   </select>
+    <select id="countBySerach" resultType="java.lang.Integer">
+        select count(1) from question where title like "%"#{serachTitle}"%"
+    </select>
 </mapper>

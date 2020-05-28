@@ -2,6 +2,7 @@ package com.xuan.forum;
 
 import com.alibaba.fastjson.JSON;
 import com.xuan.forum.dto.PaginationDto;
+import com.xuan.forum.dto.QuestionQueryDto;
 import com.xuan.forum.service.QuestionService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,6 +10,7 @@ import com.xuan.forum.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -33,9 +35,6 @@ public class HelloTestController {
         return "hello";
     }
 
-    @Autowired(required = false)
-    private UserMapper userMapper;
-
     //默认跳转路径(首页)
     @GetMapping("/")
     public String index(HttpServletRequest request, Model model,
@@ -43,12 +42,16 @@ public class HelloTestController {
                         @RequestParam(name = "size", defaultValue = "5") Integer size,
                         @RequestParam(name = "serach", required = false) String serach
     ) {
-        PaginationDto pagination = questionService.list(page, size);
+        PaginationDto pagination;
+        if (StringUtils.isEmpty(serach)){
+            pagination = questionService.list(page, size);
+        }else {
+            QuestionQueryDto questionQueryDto = new QuestionQueryDto(serach, page, size);
+            pagination = questionService.list(questionQueryDto);
+            model.addAttribute("serach", serach);
+        }
         logger.info("首页分页返回的数据:"+ JSON.toJSONString(pagination));
         model.addAttribute("pagination", pagination);
-
         return "hello";
     }
-
-
 }

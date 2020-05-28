@@ -2,6 +2,7 @@ package com.xuan.forum.service;
 
 import com.xuan.forum.dto.PaginationDto;
 import com.xuan.forum.dto.QuestionDto;
+import com.xuan.forum.dto.QuestionQueryDto;
 import com.xuan.forum.mapper.QuestionMapper;
 import com.xuan.forum.mapper.UserMapper;
 import com.xuan.forum.model.Question;
@@ -45,7 +46,7 @@ public class QuestionService {
         //获取数据库查询 offset
         Integer offset = size * (paginationDto.getPage() - 1);
         //查询分页所展示的数据
-        List<Question> questionList = questionMapper.pageList(offset,size);
+        List<Question> questionList = questionMapper.pageList(offset,size, null);
 
         List<QuestionDto> questionDtoLit = new ArrayList<>();
         for (Question question : questionList){
@@ -167,5 +168,41 @@ public class QuestionService {
             return resultDto;
         }).collect(Collectors.toList());
         return questionDtos;
+    }
+
+    public PaginationDto list(QuestionQueryDto questionQueryDto) {
+
+        /** 获取所有的数量 */
+        Integer totalCount = questionMapper.countBySerach(questionQueryDto.getSerach());
+
+        PaginationDto<QuestionDto> paginationDto = new PaginationDto<>();
+        //设置分页参数
+        paginationDto.setPagination(totalCount,questionQueryDto.getPage(),questionQueryDto.getSize());
+        //获取数据库查询 offset
+        Integer offset = questionQueryDto.getSize() * (paginationDto.getPage() - 1);
+        //查询分页所展示的数据
+        List<Question> questionList = questionMapper.pageList(offset,questionQueryDto.getSize(),questionQueryDto.getSerach());
+
+        List<QuestionDto> questionDtoLit = new ArrayList<>();
+        for (Question question : questionList){
+            //根据github账户查询用户
+            User user = userMapper.findByName(question.getCreator());
+
+            QuestionDto questionDto = new QuestionDto();
+            //对象copy
+            BeanUtils.copyProperties(question,questionDto);
+            if (null != user){
+                questionDto.setUser(user);
+            }else {
+                questionDto.setUser(new User());
+
+            }
+            questionDtoLit.add(questionDto);
+        }
+        //设置页面承载元素
+        paginationDto.setData(questionDtoLit);
+        return paginationDto;
+
+
     }
 }
