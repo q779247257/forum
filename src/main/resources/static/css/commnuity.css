@@ -143,4 +143,16 @@ body {
 }
 
 
+/** 页尾修饰 */
+.footer {
+    padding: 30px 0 10px;
+    font-size: 12px;
+    text-align: center;
+    font-family: candara,"Helvetica Neue",Helvetica,Arial,"PingFang SC","Hiragino Sans GB","WenQuanYi Micro Hei","Microsoft Yahei",sans-serif, -apple-system;
+}
+
+
+
+
+
 
