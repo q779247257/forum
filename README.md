@@ -155,3 +155,16 @@ SET FOREIGN_KEY_CHECKS = 1;
 [Editor参考Github](https://github.com/pandao/editor.md)
 
 [阿里OSS对象存储](https://help.aliyun.com/product/31815.html)
+
+## 部署
+- Git拉取代码
+- 打成Jar包
+- Mysql环境切换
+### 部署依赖
+- yum update
+- yum install git
+- mkdir xuanxuan-code-java
+- git clone https://gitee.com/xing_xuanxuan/forum.git
+- yum install maven
+- mvn compile package
+- ps -aux | grep java
