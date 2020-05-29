@@ -1,12 +1,10 @@
 package com.xuan.forum;
 
-import com.alibaba.fastjson.JSON;
 import com.xuan.forum.dto.PaginationDto;
 import com.xuan.forum.dto.QuestionQueryDto;
 import com.xuan.forum.service.QuestionService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.xuan.forum.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -50,7 +48,6 @@ public class HelloTestController {
             pagination = questionService.list(questionQueryDto);
             model.addAttribute("serach", serach);
         }
-        logger.info("首页分页返回的数据:"+ JSON.toJSONString(pagination));
         model.addAttribute("pagination", pagination);
         return "hello";
     }
