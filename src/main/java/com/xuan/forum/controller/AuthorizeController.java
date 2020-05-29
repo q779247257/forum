@@ -71,6 +71,7 @@ public class AuthorizeController {
             User orUpdate = userService.createOrUpdate(user);
 
             request.getSession().setAttribute("user", orUpdate);
+            logger.info("用放入session 的信息为 -> "+orUpdate);
 
             //添加cookie并写入信息
             response.addCookie(new Cookie("token",user.getToken()));
@@ -79,6 +80,8 @@ public class AuthorizeController {
             return "redirect:/";
         }else{
             //登录失败重新登录
+            logger.info("用户获取githubUser为null -> login is error");
+
             return "redirect:/";
         }
     }
