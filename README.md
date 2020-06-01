@@ -4,6 +4,8 @@ PCF社区是一个95后的新手码农搭建的基于Github账号的IT技术交�
 
 ![问题页](https://img-blog.csdnimg.cn/20200526145111151.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxNzc5MjQ3MjU3,size_16,color_FFFFFF,t_70)
 ![评论](https://img-blog.csdnimg.cn/20200528113222922.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxNzc5MjQ3MjU3,size_16,color_FFFFFF,t_70)
+##项目线上演示地址
+[PCF社区](http://39.99.197.149:8081/)
 ## 资料
 [项目码云地址](https://gitee.com/xing_xuanxuan/forum)
 
@@ -21,7 +23,7 @@ window10 专业版
 
 
 ## 说明
-[git登录官方文档](https://developer.github.com/apps/building-oauth-apps/creating-an-oauth-app/)
+[git授权登录官方文档](https://developer.github.com/apps/building-oauth-apps/creating-an-oauth-app/)
 ## 所用技术
 ##### 前端所用技术
 [BootStrap](https://www.bootcss.com/)
@@ -44,6 +46,7 @@ window10 专业版
 [lombok](https://projectlombok.org/)
 
 [Myabtis Generator](http://mybatis.org/generator/quickstart.html)
+[Spring Schedule](https://spring.io/guides/gs/scheduling-tasks/)
 
 ####  Mysql数据库对应的sql脚本
 

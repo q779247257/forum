@@ -21,7 +21,6 @@ import javax.servlet.http.HttpServletRequest;
  */
 @Controller
 public class HelloTestController {
-    private static Logger logger = LoggerFactory.getLogger(HelloTestController.class);
 
     @Autowired
     private QuestionService questionService;
